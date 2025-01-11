@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 
 export default function Carousels() {
   return (
-    <div style={{ backgroundColor: "#4e423c" }}>
+    <div style={{ backgroundColor: "#4e423c", color: "white" }}>
       <Carousel
         autoPlay
         infiniteLoop
@@ -12,6 +12,7 @@ export default function Carousels() {
         showStatus={false}
         showArrows={false}
         showIndicators={false}
+        swipeable={false}
       >
         <div>
           <h1>
