@@ -1,5 +1,5 @@
 "use client";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // Importing the carousel's CSS styles
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 
 export default function Carousels() {
@@ -30,8 +30,6 @@ export default function Carousels() {
           </h1>
         </div>
         <div>
-          <p className="legend">Legend 3</p>
-
           <h1>
             Free shipping over ₹15000 • Happiness guarantee • Delivery in 7-10
             business days
