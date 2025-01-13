@@ -21,8 +21,9 @@ export default function Hero() {
         backgroundColor: "#4e423c",
         color: "white",
         width: "100vw",
-        height: "50vh",
+        // height: "50vh",
       }}
+      className=" h-[50vh] lg:h-[100vh]"
     >
       <Carousel
         transitionTime={activeIndex === 0 ? 0 : 1200} // No transition time for the first slide
