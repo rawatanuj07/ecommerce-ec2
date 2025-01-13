@@ -1,6 +1,5 @@
 import React from "react";
 import { FaUser } from "react-icons/fa";
-import { FcBusinessContact } from "react-icons/fc";
 import { HiMiniShoppingBag } from "react-icons/hi2";
 import { IoHome } from "react-icons/io5";
 import { MdOutlinePermContactCalendar } from "react-icons/md";
