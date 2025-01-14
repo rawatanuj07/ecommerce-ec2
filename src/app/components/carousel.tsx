@@ -10,7 +10,7 @@ export default function Carousels() {
         infiniteLoop
         showThumbs={false}
         showStatus={false}
-        showArrows={false}
+        showArrows={true}
         showIndicators={false}
         swipeable={false}
       >
