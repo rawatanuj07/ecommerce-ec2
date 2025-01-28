@@ -4,32 +4,32 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 export default function Products() {
-  const [products, setProducts] = useState<
-    {
-      id: number;
-      name: string;
-      images: { src: string }[];
-      price: string;
-      description: string;
-      short_description: string;
-    }[]
-  >([]);
+  // const [products, setProducts] = useState<
+  //   {
+  //     id: number;
+  //     name: string;
+  //     images: { src: string }[];
+  //     price: string;
+  //     description: string;
+  //     short_description: string;
+  //   }[]
+  // >([]);
   const [categories, setCategories] = useState<
     { id: number; name: string; slug: string; image: { src: string } | null }[]
   >([]);
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("/api/fetchh?type=products");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        const data = await res.json();
-        setProducts(data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+    // const fetchProducts = async () => {
+    //   try {
+    //     const res = await fetch("/api/fetchh?type=products");
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! status: ${res.status}`);
+    //     }
+    //     const data = await res.json();
+    //     setProducts(data);
+    //   } catch (error) {
+    //     console.error("Error fetching products:", error);
+    //   }
+    // };
 
     const fetchCategories = async () => {
       try {
@@ -47,7 +47,7 @@ export default function Products() {
       }
     };
 
-    fetchProducts();
+    // fetchProducts();
     fetchCategories();
   }, []);
 
