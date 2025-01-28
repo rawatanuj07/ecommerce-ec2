@@ -28,6 +28,7 @@ export default function Carousels() {
           }
         }`
       );
+      console.log("Fetched carousel data:", data); // Debugging information
       setCarouselData(data[0]); // Assuming you're fetching only one carousel document
     };
 
@@ -35,6 +36,8 @@ export default function Carousels() {
   }, []);
 
   if (!carouselData) {
+    console.log("data groq", carouselData);
+    // console.log("data groq", carouselData[0]);
     return <div>Loading...</div>;
   }
 
