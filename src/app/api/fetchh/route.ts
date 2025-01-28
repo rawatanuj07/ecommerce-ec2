@@ -65,7 +65,6 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
-    console.log(`Fetched ${type}:`, data); // Debugging information
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
