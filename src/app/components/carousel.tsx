@@ -4,7 +4,8 @@ import { client as sanityClient } from "../../sanity/lib/client"; // Adjust the 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel as CarouselComponent } from "react-responsive-carousel";
 import { Carousel, Slide } from "../../../sanity.types"; // Adjust the path to your types file
-
+export const dynamic = "force-static";
+export const revalidate = 60;
 export default function Carousels() {
   const [carouselData, setCarouselData] = useState<Carousel | null>(null);
 
