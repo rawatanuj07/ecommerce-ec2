@@ -75,7 +75,7 @@ export default function Products() {
 
   return (
     <div className="h-1/2" style={{ backgroundColor: "#ede5e2" }}>
-      <h1 className="text-center text-4xl mb-4 p-8">Our-Categories</h1>
+      <h1 className="text-center text-4xl  p-8">Our-Categories</h1>
       <Carousel
         responsive={responsive}
         showDots={false}
@@ -120,6 +120,7 @@ export default function Products() {
       <style jsx>{`
         .category-item {
           text-align: center;
+          margin-top: 20px;
         }
         .category-image-wrapper {
           position: relative;
@@ -135,9 +136,10 @@ export default function Products() {
           height: 100%;
           object-fit: cover;
           transition: all 0.3s ease;
+          transform-origin: center; /* Ensure scaling from the center */
         }
         .category-item:hover .category-image-wrapper {
-          border: 4px solid #000;
+          border: 8px solid #ffffff;
           transform: scale(1.1);
         }
         .category-item:hover .category-image {
