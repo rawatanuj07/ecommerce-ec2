@@ -4,7 +4,6 @@ import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
-import { Carousel as CarouselType } from "../../../sanity.types"; // Adjust the path to your types file
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
