@@ -93,13 +93,16 @@ export default function Products() {
         {categories.map((category) => (
           <div key={category.id} className="category-item">
             <div className="category-image-wrapper">
-              {category.image && category.image.src && (
-                <img
-                  src={category.image.src}
-                  alt={category.name}
-                  className="category-image"
-                />
-              )}
+              {category.image &&
+                category.image.src &&
+                (console.log("category image", category.image.src),
+                (
+                  <img
+                    src={category.image.src}
+                    alt={category.name}
+                    className="category-image"
+                  />
+                ))}
             </div>
             <h2>{category.name}</h2>
           </div>
