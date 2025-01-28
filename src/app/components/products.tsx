@@ -75,7 +75,7 @@ export default function Products() {
 
   return (
     <div className="h-1/2" style={{ backgroundColor: "#ede5e2" }}>
-      <h1 className="text-center text-4xl mb-4 p-8">Our Categories</h1>
+      <h1 className="text-center text-4xl mb-4 p-8">Our-Categories</h1>
       <Carousel
         responsive={responsive}
         showDots={false}
