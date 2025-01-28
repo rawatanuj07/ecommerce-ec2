@@ -3,13 +3,32 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
+import { Carousel as CarouselType } from "../../../sanity.types"; // Adjust the path to your types file
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showCurtain, setShowCurtain] = useState(true); // State to manage curtain visibility
+  const [slides, setSlides] = useState<CarouselType["heroSlides"] | null>(null);
 
   useEffect(() => {
     // Delay curtain removal by 2 seconds whenever the slide changes
+    // Fetch slides data from Sanity
+    client
+      .fetch<CarouselType>(
+        '*[_type == "carousel"][0]{heroSlides[]{image{asset->{url}}, text}}'
+      )
+      .then((data) => {
+        if (data) {
+          setSlides(data.heroSlides || null);
+        } else {
+          console.error("No data found");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+
     setShowCurtain(true);
     const timer = setTimeout(() => setShowCurtain(false), 1500);
     return () => clearTimeout(timer); // Cleanup timeout on component unmount
@@ -38,10 +57,20 @@ export default function Hero() {
         stopOnHover={false}
         onChange={(index) => setActiveIndex(index)} // Track the active slide index
       >
-        {["c1.jpg", "c2.jpg", "c3.jpeg"].map((image, i) => (
+        {[
+          slides && slides[0]?.image?.asset
+            ? slides[0].image.asset.url
+            : "No URL",
+          slides && slides[1]?.image?.asset
+            ? slides[1].image.asset.url
+            : "No URL",
+          slides && slides[2]?.image?.asset
+            ? slides[2].image.asset.url
+            : "No URL",
+        ].map((image, i) => (
           <div key={i} className="relative w-full h-[50vh] lg:h-[100vh]">
             <Image
-              src={`/${image}`}
+              src={image.startsWith("http") ? image : `/${image}`}
               alt={`Slide ${i + 1}`}
               layout="fill"
               objectFit="cover"
@@ -65,7 +94,7 @@ export default function Hero() {
               }}
               className={activeIndex === i && !showCurtain ? "pop-up" : ""}
             >
-              Welcome you to my world of artistry {i + 1}
+              {slides && slides[i]?.text}
             </h1>
           </div>
         ))}
@@ -86,7 +115,9 @@ export default function Hero() {
             20px
           ); /* Starts slightly below its final position */
           opacity: 1; /* Becomes fully visible */
-          transition: transform 1s ease-out 0.5s, opacity 1s ease-out 0.5s; /* Delayed smooth animation */
+          transition:
+            transform 1s ease-out 0.5s,
+            opacity 1s ease-out 0.5s; /* Delayed smooth animation */
           transform: translateY(0); /* Final position */
         }
 

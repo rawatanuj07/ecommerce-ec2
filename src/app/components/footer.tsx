@@ -6,7 +6,7 @@ import { MdOutlinePermContactCalendar } from "react-icons/md";
 
 export default function Footer() {
   return (
-    <div className="lg:hidden w-full flex justify-between items-center bg-white text-black h-16 border-t-2">
+    <div className="sticky bottom-0 lg:hidden w-full flex justify-between items-center bg-white text-black h-16 border-t-2">
       <div className="flex-1 flex flex-col justify-center items-center border border-gray-300 h-full">
         <IoHome />
         <span>Home</span>

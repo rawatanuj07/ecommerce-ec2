@@ -1,41 +1,71 @@
 "use client";
+import { useEffect, useState } from "react";
+import { client as sanityClient } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
+import { Carousel as CarouselComponent } from "react-responsive-carousel";
+import { Carousel, Slide } from "../../../sanity.types"; // Adjust the path to your types file
 
 export default function Carousels() {
+  const [carouselData, setCarouselData] = useState<Carousel | null>(null);
+
+  useEffect(() => {
+    // Fetch carousel data from Sanity
+    const fetchCarousel = async () => {
+      const data = await sanityClient.fetch(
+        `*[_type == "carousel"]{
+          title,
+          backgroundColor,
+          autoPlay,
+          infiniteLoop,
+          showArrows,
+          swipeable,
+          interval,
+          transitionTime,
+          slides[]{
+            text,
+            backgroundColor
+          }
+        }`
+      );
+      setCarouselData(data[0]); // Assuming you're fetching only one carousel document
+    };
+
+    fetchCarousel();
+  }, []);
+
+  if (!carouselData) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div style={{ backgroundColor: "#4e423c", color: "white" }}>
-      <Carousel
-        autoPlay
-        infiniteLoop
+    <div
+      style={{
+        backgroundColor: carouselData.backgroundColor?.hex,
+        color: "white",
+      }}
+    >
+      <CarouselComponent
+        autoPlay={carouselData.autoPlay}
+        infiniteLoop={carouselData.infiniteLoop}
         showThumbs={false}
         showStatus={false}
         showArrows={true}
         showIndicators={false}
-        swipeable={false}
+        swipeable={carouselData.swipeable}
+        interval={carouselData.interval || 3000}
+        transitionTime={carouselData.transitionTime || 500}
       >
-        <div>
-          <h1>
-            Exclusive Art Collections • Hand-Painted Masterpieces • 24/7
-            Customer Support
-          </h1>
-        </div>
-        <div>
-          <h1>Enhance Your Space with Art • Limited Time Offers • Shop Now</h1>
-        </div>
-        <div>
-          <h1>
-            Exclusive Deals on Paintings • Handcrafted Artworks • Shop the
-            Collection
-          </h1>
-        </div>
-        <div>
-          <h1>
-            Free shipping over ₹15000 • Happiness guarantee • Delivery in 7-10
-            business days
-          </h1>
-        </div>
-      </Carousel>
+        {carouselData.slides?.map((slide: Slide, index) => (
+          <div
+            key={index}
+            style={{
+              padding: "10px",
+            }}
+          >
+            <h1>{slide.text}</h1>
+          </div>
+        ))}
+      </CarouselComponent>
     </div>
   );
 }
