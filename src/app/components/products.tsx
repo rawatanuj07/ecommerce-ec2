@@ -50,7 +50,7 @@ export default function Products() {
     // fetchProducts();
     fetchCategories();
   }, []);
-
+  console.log("categories is", categories);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1024 },
