@@ -50,7 +50,6 @@ export async function GET(req: NextRequest) {
     url: `${apiUrl}/wp-json/wc/v3/${endpoint}`,
     method: "GET",
   };
-
   const headers = oauth.toHeader(oauth.authorize(requestData));
 
   try {
@@ -66,6 +65,7 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await response.json();
+    console.log(`Fetched ${type}:`, data); // Debugging information
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(

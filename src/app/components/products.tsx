@@ -17,7 +17,6 @@ export default function Products() {
   const [categories, setCategories] = useState<
     { id: number; name: string; slug: string; image: { src: string } | null }[]
   >([]);
-  console.log("products", products);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -26,7 +25,6 @@ export default function Products() {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        console.log("Fetched products:", data); // Debugging information
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -40,7 +38,6 @@ export default function Products() {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        console.log("Fetched categories:", data); //    // Filter out the "Uncategorised" category
         const filteredCategories = data.filter(
           (category: { name: string }) => category.name !== "Uncategorized"
         );
@@ -93,16 +90,13 @@ export default function Products() {
         {categories.map((category) => (
           <div key={category.id} className="category-item">
             <div className="category-image-wrapper">
-              {category.image &&
-                category.image.src &&
-                (console.log("category image", category.image.src),
-                (
-                  <img
-                    src={category.image.src}
-                    alt={category.name}
-                    className="category-image"
-                  />
-                ))}
+              {category.image && category.image.src && (
+                <img
+                  src={category.image.src}
+                  alt={category.name}
+                  className="category-image"
+                />
+              )}
             </div>
             <h2>{category.name}</h2>
           </div>
