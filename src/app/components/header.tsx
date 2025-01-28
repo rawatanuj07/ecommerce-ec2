@@ -65,7 +65,7 @@ const Header = () => {
         "YOUR_WOOCOMMERCE_API_URL/products/categories"
       );
       const data = await response.json();
-      return data.map((category: any) => ({
+      return data.map((category: WooCommerceCategory) => ({
         id: category.id,
         name: category.name,
         slug: category.slug,

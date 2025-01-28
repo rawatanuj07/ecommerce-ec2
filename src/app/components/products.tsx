@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { stripHtml } from "../utils/sttripHtml";
 
 export default function Products() {
   const [products, setProducts] = useState<
@@ -18,7 +17,7 @@ export default function Products() {
   const [categories, setCategories] = useState<
     { id: number; name: string; slug: string; image: { src: string } | null }[]
   >([]);
-
+  console.log("products", products);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
