@@ -9,22 +9,27 @@ import { Carousel as CarouselType } from "../../../sanity.types"; // Adjust the 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [showCurtain, setShowCurtain] = useState(true); // State to manage curtain visibility
-  const [slides, setSlides] = useState<CarouselType["heroSlides"] | null>(null);
+  const [slides, setSlides] = useState<
+    { image: { asset: { url: string } }; text?: string }[] | null
+  >(null);
 
   useEffect(() => {
-    // Delay curtain removal by 2 seconds whenever the slide changes
     // Fetch slides data from Sanity
     client
-      .fetch<CarouselType>(
+      .fetch(
         '*[_type == "carousel"][0]{heroSlides[]{image{asset->{url}}, text}}'
       )
-      .then((data) => {
-        if (data) {
-          setSlides(data.heroSlides || null);
-        } else {
-          console.error("No data found");
+      .then(
+        (data: {
+          heroSlides: { image: { asset: { url: string } }; text?: string }[];
+        }) => {
+          if (data) {
+            setSlides(data.heroSlides || null);
+          } else {
+            console.error("No data found");
+          }
         }
-      })
+      )
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
@@ -40,65 +45,56 @@ export default function Hero() {
         backgroundColor: "#4e423c",
         color: "white",
         width: "100vw",
-        // height: "50vh",
       }}
       className=" h-[50vh] lg:h-[100vh]"
     >
-      <Carousel
-        transitionTime={activeIndex === 0 ? 0 : 1200} // No transition time for the first slide
-        autoPlay
-        interval={5000}
-        infiniteLoop
-        showThumbs={false}
-        showStatus={false}
-        showArrows={false}
-        showIndicators={false}
-        swipeable={false}
-        stopOnHover={false}
-        onChange={(index) => setActiveIndex(index)} // Track the active slide index
-      >
-        {[
-          slides && slides[0]?.image?.asset
-            ? slides[0].image.asset.url
-            : "No URL",
-          slides && slides[1]?.image?.asset
-            ? slides[1].image.asset.url
-            : "No URL",
-          slides && slides[2]?.image?.asset
-            ? slides[2].image.asset.url
-            : "No URL",
-        ].map((image, i) => (
-          <div key={i} className="relative w-full h-[50vh] lg:h-[100vh]">
-            <Image
-              src={image.startsWith("http") ? image : `/${image}`}
-              alt={`Slide ${i + 1}`}
-              layout="fill"
-              objectFit="cover"
-            />
+      {slides && (
+        <Carousel
+          transitionTime={activeIndex === 0 ? 0 : 1200}
+          autoPlay
+          interval={5000}
+          infiniteLoop
+          showThumbs={false}
+          showStatus={false}
+          showArrows={false}
+          showIndicators={false}
+          swipeable={false}
+          stopOnHover={false}
+          onChange={(index) => setActiveIndex(index)}
+        >
+          {slides.map((slide, i) => (
+            <div key={i} className="relative w-full h-[50vh] lg:h-[100vh]">
+              <Image
+                src={slide.image.asset.url}
+                alt={`Slide ${i + 1}`}
+                layout="fill"
+                objectFit="cover"
+              />
 
-            {/* Curtain Effect */}
-            <div
-              className={`curtain ${
-                showCurtain && activeIndex === i ? "" : "slide"
-              }`}
-            />
+              {/* Curtain Effect */}
+              <div
+                className={`curtain ${
+                  showCurtain && activeIndex === i ? "" : "slide"
+                }`}
+              />
 
-            {/* Heading */}
-            <h1
-              style={{
-                position: "absolute",
-                width: "80%",
-                top: "40%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-              className={activeIndex === i && !showCurtain ? "pop-up" : ""}
-            >
-              {slides && slides[i]?.text}
-            </h1>
-          </div>
-        ))}
-      </Carousel>
+              {/* Heading */}
+              <h1
+                style={{
+                  position: "absolute",
+                  width: "80%",
+                  top: "40%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                }}
+                className={activeIndex === i && !showCurtain ? "pop-up" : ""}
+              >
+                {slide.text}
+              </h1>
+            </div>
+          ))}
+        </Carousel>
+      )}
       <style jsx>{`
         /* General Heading Style */
         h1 {
