@@ -27,6 +27,7 @@ export async function GET(req: NextRequest) {
 
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
+  const tag = searchParams.get("tag");
   let endpoint = "";
 
   switch (type) {
@@ -46,10 +47,42 @@ export async function GET(req: NextRequest) {
       );
   }
 
+  let url = `${apiUrl}/wp-json/wc/v3/${endpoint}`;
+  if (type === "products" && tag) {
+    // Fetch the tag ID first
+    const tagResponse = await fetch(
+      `${apiUrl}/wp-json/wc/v3/products/tags?slug=${tag}`,
+      {
+        method: "GET",
+        headers: {
+          ...oauth.toHeader(
+            oauth.authorize({
+              url: `${apiUrl}/wp-json/wc/v3/products/tags?slug=${tag}`,
+              method: "GET",
+            })
+          ),
+        },
+      }
+    );
+
+    if (!tagResponse.ok) {
+      throw new Error(`HTTP error! status: ${tagResponse.status}`);
+    }
+
+    const tagData = await tagResponse.json();
+    if (tagData.length > 0) {
+      const tagId = tagData[0].id;
+      url += `?tag=${tagId}`;
+    } else {
+      return NextResponse.json([], { status: 200 });
+    }
+  }
+
   const requestData = {
-    url: `${apiUrl}/wp-json/wc/v3/${endpoint}`,
+    url,
     method: "GET",
   };
+
   const headers = oauth.toHeader(oauth.authorize(requestData));
 
   try {
