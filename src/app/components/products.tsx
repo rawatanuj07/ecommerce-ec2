@@ -495,7 +495,7 @@ footerImage{
               <h2 className="text-xl font-bold mb-4">Contact via Email</h2>
               <p>artist@gmail.com</p>
               <p>theartist@gmail.com</p>
-              <p>We'll get back to you.</p>
+              <p>We`&apos;`ll get back to you.</p>
             </div>
             <div>
               <h2 className="text-xl font-bold mb-4">Follow Us</h2>
