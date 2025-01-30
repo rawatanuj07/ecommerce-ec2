@@ -508,7 +508,7 @@ footerImage{
               <p>Terms & Condition</p>
               <p>Refund policy</p>
               <p>Shipping policy</p>
-              <p>FAQ`&spos`s</p>
+              <p>FAQ`&apos;`s</p>
               <p>Customizing Policy</p>
             </div>
             <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center mt-8">
