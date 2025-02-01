@@ -6,6 +6,8 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { RiShoppingCart2Fill } from "react-icons/ri";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 import { Carousel } from "../../../sanity.types"; // Adjust the path to your types file
+import { motion } from "framer-motion";
+import { Link } from "lucide-react";
 
 export interface WooCommerceCategory {
   id: number;
@@ -18,8 +20,8 @@ const Header = () => {
   const [navigationItems, setNavigationItems] = useState<
     Carousel["navigationItems"]
   >([]);
-  const [woocommerceCategories, setWooCommerceCategories] = useState<
-    WooCommerceCategory[]
+  const [categories, setCategories] = useState<
+    { id: number; name: string; slug: string; image: { src: string } | null }[]
   >([]);
   const [exclusiveTag, setExclusiveTag] = useState<string>("Exclusive");
   const [headerColor, setHeaderColor] = useState<string>("#ffffff");
@@ -40,40 +42,30 @@ const Header = () => {
       });
 
     // Fetch WooCommerce categories
-    fetchWooCommerceCategories()
-      .then((categories) => {
-        setWooCommerceCategories(categories.slice(0, 8)); // Limit to 8 categories
-      })
-      .catch((error) => {
-        console.error("Error fetching WooCommerce categories:", error);
-        setWooCommerceCategories([]); // Set to empty array if there's an error
-      });
+
+    const fetchCategories = async () => {
+      console.log("fetching categories started");
+      try {
+        const res = await fetch("/api/fetchh?type=categories");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log("data from header categories", data);
+        const filteredCategories = data.filter(
+          (category: { name: string }) => category.name !== "Uncategorized"
+        );
+        setCategories(filteredCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  // Example function to fetch WooCommerce categories
-  const fetchWooCommerceCategories = async (): Promise<
-    WooCommerceCategory[]
-  > => {
-    // Implement your WooCommerce API call here
-    // This is just a placeholder
-    try {
-      const response = await fetch(
-        "YOUR_WOOCOMMERCE_API_URL/products/categories"
-      );
-      const data = await response.json();
-      return data.map((category: WooCommerceCategory) => ({
-        id: category.id,
-        name: category.name,
-        slug: category.slug,
-      }));
-    } catch (error) {
-      console.error("Error fetching WooCommerce categories:", error);
-      return [];
-    }
   };
 
   return (
@@ -114,9 +106,10 @@ const Header = () => {
                     isSidebarOpen={isSidebarOpen}
                     headerColor={headerColor}
                     label="Collections"
-                    items={woocommerceCategories}
+                    items={categories}
                     exclusiveTag={exclusiveTag}
                   />
+
                   <h1 className="text-xl mx-4">LOGO</h1>
                 </>
               ) : (
@@ -149,7 +142,7 @@ const Header = () => {
                     isSidebarOpen={isSidebarOpen}
                     label="Collections"
                     headerColor={headerColor}
-                    items={woocommerceCategories}
+                    items={categories}
                     exclusiveTag={exclusiveTag}
                   />
                 ) : (
@@ -174,10 +167,9 @@ const Header = () => {
   );
 };
 
-// Updated Dropdown component
+// Updated Dropdown component with staggered animation
 const Dropdown = ({
   isSidebarOpen,
-
   label,
   items,
   exclusiveTag,
@@ -219,7 +211,12 @@ const Dropdown = ({
         </svg>
       </button>
       {isOpen && (
-        <div className="origin-top-right absolute left-0 lg:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-50">
+        <motion.div
+          initial="closed"
+          animate={isOpen ? "open" : "closed"}
+          variants={wrapperVariants}
+          className="origin-top-right absolute left-0 lg:right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none z-50"
+        >
           <div
             className="py-1"
             role="menu"
@@ -227,27 +224,63 @@ const Dropdown = ({
             aria-labelledby="options-menu"
           >
             {items.map((item, idx) => (
-              <a
+              <motion.a
                 key={idx}
-                href={`/${item.slug}`}
+                href={`/full`}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
+                variants={itemVariants}
               >
                 {item.name}
-              </a>
+              </motion.a>
             ))}
-            <a
+            <motion.a
               href="/exclusive"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
+              variants={itemVariants}
             >
               {exclusiveTag}
-            </a>
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
+};
+
+const wrapperVariants = {
+  open: {
+    scaleY: 1,
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  },
+  closed: {
+    scaleY: 0,
+    transition: {
+      when: "afterChildren",
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  open: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      when: "beforeChildren",
+    },
+  },
+  closed: {
+    opacity: 0,
+    y: -15,
+    transition: {
+      when: "afterChildren",
+    },
+  },
 };
 
 export default Header;

@@ -106,14 +106,13 @@ export default function Hero() {
 
         /* Pop-Up Animation for Heading */
         .pop-up {
-          transform: translateY(
-            20px
-          ); /* Starts slightly below its final position */
-          opacity: 1; /* Becomes fully visible */
+          transform: translateY(100%); /* Starts below its final position */
+          opacity: 0; /* Initially hidden */
           transition:
-            transform 1s ease-out 0.5s,
-            opacity 1s ease-out 0.5s; /* Delayed smooth animation */
+            transform 0.5s ease-out,
+            opacity 0.5s ease-out; /* Smooth animation */
           transform: translateY(0); /* Final position */
+          opacity: 1; /* Becomes fully visible */
         }
 
         /* Curtain Effect */

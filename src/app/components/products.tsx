@@ -288,7 +288,7 @@ footerImage{
             transitionDuration={500}
             containerClass="carousel-container"
             dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-20-px flex  justify-center"
+            itemClass=" flex  justify-center"
             className="mb-8 flex"
           >
             {products.map((product) => (
@@ -333,8 +333,8 @@ footerImage{
             }
             .trending-image-wrapper {
               position: relative;
-              width: 80%;
-              height: 80%;
+              width: 90%;
+              height: 9 0%;
               margin: 0 auto;
               overflow: hidden;
               border-radius: 5%;
@@ -361,9 +361,9 @@ footerImage{
           {categories.slice(0, 4).map((category) => (
             <div
               key={category.id}
-              className="category-item mb-8 flex-1 max-w-sm mx-2 p-4"
+              className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group"
             >
-              <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg">
+              <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg relative">
                 {category.image && category.image.src && (
                   <img
                     src={category.image.src}
@@ -371,6 +371,12 @@ footerImage{
                     className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
                   />
                 )}
+                <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-xl font-bold  w-full text-center py-2 transition-all duration-500 ease-out group-hover:bottom-14">
+                  {category.name}
+                </h1>
+                <button className="absolute bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out bg-blue-500 text-white px-4 pb-2 rounded-full opacity-0 group-hover:opacity-100">
+                  Shop Now
+                </button>
               </div>
             </div>
           ))}
@@ -417,44 +423,46 @@ footerImage{
         </div>
       </div>
       <div className="h-auto  bg-white bottom-0 w-full">
-        <Carousel
-          responsive={responsivet}
-          showDots={true}
-          infinite
-          autoPlay
-          autoPlaySpeed={3000}
-          keyBoardControl
-          customTransition="transform 0.5s ease-in-out"
-          transitionDuration={500}
-          containerClass="carousel-container"
-          dotListClass="custom-dot-list-style"
-          itemClass="carousel-item-padding-20-px flex justify-center"
-          className="mb-8 flex"
-        >
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex flex-col space-y-8 items-center justify-center text-center p-4"
-            >
-              <h1 className="text-4xl my-16 font-bold mb-4">
-                What Our Customers Are Saying
-              </h1>
-              <p className="mb-4">{testimonial.description}</p>
-              {testimonial.image && testimonial.image.asset && (
-                <img
-                  src={testimonial.image.asset.url}
-                  alt={testimonial.name}
-                  className="w-24 h-24 rounded-full mb-4"
-                />
-              )}
-              <h2 className="text-lg font-semibold">{testimonial.name}</h2>
-              <p className="text-sm text-gray-600">{testimonial.location}</p>
-              <button className="mt-4 px-4 py-2 border border-gray-800 rounded-full text-gray-800">
-                Review
-              </button>
-            </div>
-          ))}
-        </Carousel>
+        <div className="flex justify-center items-center">
+          <Carousel
+            responsive={responsivet}
+            showDots={false}
+            infinite
+            autoPlay
+            autoPlaySpeed={3000}
+            keyBoardControl
+            customTransition="transform 0.5s ease-in-out"
+            transitionDuration={500}
+            containerClass="carousel-container"
+            dotListClass="custom-dot-list-style"
+            itemClass="carousel-item-padding-20-px flex justify-center"
+            className="mb-8 w-full sm:w-1/2  flex items-center justify-center "
+          >
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="flex flex-col space-y-8  items-center justify-center text-center p-4"
+              >
+                <h1 className="text-4xl my-16 font-bold mb-4">
+                  What Our Customers Are Saying
+                </h1>
+                <p className="mb-4">{testimonial.description}</p>
+                {testimonial.image && testimonial.image.asset && (
+                  <img
+                    src={testimonial.image.asset.url}
+                    alt={testimonial.name}
+                    className="w-24 h-24 rounded-full mb-4"
+                  />
+                )}
+                <h2 className="text-lg font-semibold">{testimonial.name}</h2>
+                <p className="text-sm text-gray-600">{testimonial.location}</p>
+                <button className="mt-4 px-4 py-2 border border-gray-800 rounded-full text-gray-800">
+                  Review
+                </button>
+              </div>
+            ))}
+          </Carousel>
+        </div>
         {/* Feedback Section */}
         <div className="flex justify-center items-center mt-8">
           {/* <h1>Leave a Feedback</h1> */}
@@ -468,50 +476,59 @@ footerImage{
           </button>
         </div>
         {/* Footer Image */}
-        <div className="relative w-full h-96">
-          <Image
+
+        <div className="relative w-full">
+          <div
+            style={{
+              backgroundImage: `url(https://vikkaso.com/public/asset/images/background_footer_img.png)`,
+              paddingBottom: "280px",
+              backgroundRepeat: "repeat-x ",
+              backgroundPosition: "center-bottom",
+            }}
+          ></div>
+          {/* <Image
             src={sectionStyles.footerImage}
             alt="footer"
             layout="fill"
             objectFit="cover"
-          />
+          /> */}
         </div>
         <div className="bg-gray-800 text-white text-center p-8">
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div>
+          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 flex justify-center items-center">
+            <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Visit Us</h2>
               <p>
                 C-XX, Lorem Ipsum APARTMENT, GROUND FLOOR, Diemet Ozgur, C -
                 DREAM - 405601, ( hac. ), Ut
               </p>
             </div>
-            <div>
+            <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Need Support</h2>
               <p>Call +91 982xxxxxxx</p>
               <p>Call +91 141xxxxxxx</p>
               <p>Mon - Sat : 10.00 am - 7.00 pm</p>
             </div>
-            <div>
+            <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Contact via Email</h2>
               <p>artist@gmail.com</p>
               <p>theartist@gmail.com</p>
-              <p>We`&apos;`ll get back to you.</p>
+              <p>We'll get back to you.</p>
             </div>
-            <div>
+            <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Follow Us</h2>
               <p>Instagram</p>
             </div>
-            <div>
+            <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Help Desk</h2>
               <p>Privacy policy</p>
               <p>Cancellation policy</p>
               <p>Terms & Condition</p>
               <p>Refund policy</p>
               <p>Shipping policy</p>
-              <p>FAQ`&apos;`s</p>
+              <p>FAQ’s</p>
               <p>Customizing Policy</p>
             </div>
-            <div className="col-span-1 md:col-span-2 lg:col-span-3 text-center mt-8">
+            <div className="col-span-1 md:col-span-3 lg:col-span-6 text-center mt-8">
               <p>Copyright © 2024 The Artist. All rights reserved</p>
             </div>
           </div>
