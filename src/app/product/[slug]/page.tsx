@@ -1,6 +1,6 @@
 import { stripHtml } from "@/app/utils/sttripHtml";
 import { getProductBySlug } from "../../utils/getProductBySlug";
-import { PortableText } from "next-sanity";
+// import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 // import AddToBasketButton from "@/components/AddToBasketButton";
