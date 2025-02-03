@@ -1,4 +1,7 @@
 export function stripHtml(html: string): string {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.body.textContent || "";
+  if (typeof window !== "undefined") {
+    const parser = new DOMParser();
+    return parser.parseFromString(html, "text/html").body.textContent || "";
+  }
+  return html.replace(/<[^>]*>/g, "").trim(); // Fallback for server-side rendering
 }
