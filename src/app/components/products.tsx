@@ -5,7 +5,6 @@ import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 import Link from "next/link";
-import { backIn } from "framer-motion";
 // import Image from "next/image";
 
 export default function Products() {
@@ -224,8 +223,8 @@ footerImage{
             className="mb-8 flex"
           >
             {categories.map((category) => (
-              <Link href="/full">
-                <div key={category.id} className="category-item mb-8 flex-1">
+              <Link href="/full" key={category.id}>
+                <div className="category-item mb-8 flex-1">
                   <div className="category-image-wrapper">
                     {category.image && category.image.src && (
                       <img
@@ -297,11 +296,8 @@ footerImage{
             className="mb-8 flex"
           >
             {products.map((product) => (
-              <Link href={"product/" + product.slug}>
-                <div
-                  key={product.id}
-                  className="product-item align-center mb-8 flex-1"
-                >
+              <Link key={product.id} href={"product/" + product.slug}>
+                <div className="product-item align-center mb-8 flex-1">
                   <div className="trending-image-wrapper mb-4">
                     {product.images[0]?.src && (
                       <img
@@ -363,13 +359,11 @@ footerImage{
             }
           `}</style>
         </div>
-        <Link href={"/full"}>
-          <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
-            {categories.slice(0, 4).map((category) => (
-              <div
-                key={category.id}
-                className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group"
-              >
+
+        <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
+          {categories.slice(0, 4).map((category) => (
+            <Link key={category.id} href={"/full"}>
+              <div className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group">
                 <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg relative">
                   {category.image && category.image.src && (
                     <img
@@ -386,9 +380,10 @@ footerImage{
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </Link>
+            </Link>
+          ))}
+        </div>
+
         <div
           className="parallax h-auto z-2 bg-fixed bg-center bg-no-repeat bg-cover relative"
           style={{
