@@ -28,7 +28,7 @@ body {
 .carousel .slide.selected {
   opacity: 1;
 }
-
+@rangeslider.css;
 @layer base {
   :root {
     --background: 0 0% 100%;

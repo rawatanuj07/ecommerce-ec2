@@ -8,6 +8,8 @@ import { CategorySelector } from "../../components/ui/categorySelector";
 import ProductGrid from "../components/ui/ProductGrid";
 import ProductFilter from "@/components/ui/product-filter";
 // import ProductFilter from "./ui/product-filter";
+export const dynamic = "force-static";
+export const revalidate = 60;
 export interface Product {
   id: number;
   name: string;

@@ -7,7 +7,7 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 import { Carousel } from "../../../sanity.types"; // Adjust the path to your types file
 import { motion } from "framer-motion";
-// import { Link } from "lucide-react";
+import Link from "next/link"; // Import Link from next/link
 
 export interface WooCommerceCategory {
   id: number;
@@ -68,6 +68,17 @@ const Header = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  // Define the hardcoded links for each navigation item
+  const navigationLinks: { [key: string]: string } = {
+    Home: "/",
+    About: "/about",
+    Projects: "/projects",
+    Collections: "/full",
+    Achievements: "/achievements",
+    Testimonials: "/testimonials",
+    Contacts: "/contact",
+  };
+
   return (
     <header
       className="relative text-black p-4"
@@ -109,13 +120,15 @@ const Header = () => {
                     items={categories}
                     exclusiveTag={exclusiveTag}
                   />
-
                   <h1 className="text-xl mx-4">LOGO</h1>
                 </>
               ) : (
-                <a href={item.link} className="px-4 text-lg">
+                <Link
+                  href={item.label ? navigationLinks[item.label] || "#" : "#"}
+                  className="px-4 text-lg"
+                >
                   {item.label}
-                </a>
+                </Link>
               )}
             </React.Fragment>
           ))}
@@ -146,9 +159,12 @@ const Header = () => {
                     exclusiveTag={exclusiveTag}
                   />
                 ) : (
-                  <a href={item.link} className="hover:underline text-lg">
+                  <Link
+                    href={item.label ? navigationLinks[item.label] || "#" : "#"}
+                    className="hover:underline text-lg"
+                  >
                     {item.label}
-                  </a>
+                  </Link>
                 )}
               </li>
             ))}
@@ -235,7 +251,7 @@ const Dropdown = ({
               </motion.a>
             ))}
             <motion.a
-              href="/exclusive"
+              href="/full"
               className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               role="menuitem"
               variants={itemVariants}

@@ -13,10 +13,10 @@ function ProductThumb({ product }: ProductThumbProps) {
   const isOutOfStock = product.stock_status !== "instock";
   return (
     <Link
-      href={""}
+      href={"product/" + product.slug}
       className={`group flex flex-col bg-white rounded rounded-xl border
       border-gray-200
-      shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden h-full w-full ${
+      shadow-sm hover:shadow-lg transition-all duration-200 hover:scale-102 overflow-hidden h-full w-full ${
         isOutOfStock ? "opacity-50" : ""
       }`}
     >
@@ -25,7 +25,7 @@ function ProductThumb({ product }: ProductThumbProps) {
           <Image
             className="object-contain
             transition-transform duration-300
-            group-hover: scale-105"
+            group-hover:scale-105"
             src={
               product.images[0]?.src || "https://picsum.photos/805/800/?random"
             }

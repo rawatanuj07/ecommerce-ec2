@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const type = searchParams.get("type");
   const tag = searchParams.get("tag");
+  const slug = searchParams.get("slug");
   let endpoint = "";
 
   switch (type) {
@@ -39,6 +40,15 @@ export async function GET(req: NextRequest) {
       break;
     case "tags":
       endpoint = "products/tags";
+      break;
+    case "product":
+      if (!slug) {
+        return NextResponse.json(
+          { error: "Missing slug parameter" },
+          { status: 400 }
+        );
+      }
+      endpoint = `products?slug=${slug}`;
       break;
     default:
       return NextResponse.json(

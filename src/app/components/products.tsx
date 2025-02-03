@@ -4,6 +4,8 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
+import Link from "next/link";
+import { backIn } from "framer-motion";
 // import Image from "next/image";
 
 export default function Products() {
@@ -15,6 +17,7 @@ export default function Products() {
       price: string;
       description: string;
       short_description: string;
+      slug: string;
     }[]
   >([]);
   const [testimonials, setTestimonials] = useState<
@@ -221,18 +224,20 @@ footerImage{
             className="mb-8 flex"
           >
             {categories.map((category) => (
-              <div key={category.id} className="category-item mb-8 flex-1">
-                <div className="category-image-wrapper">
-                  {category.image && category.image.src && (
-                    <img
-                      src={category.image.src}
-                      alt={category.name}
-                      className="category-image"
-                    />
-                  )}
+              <Link href="/full">
+                <div key={category.id} className="category-item mb-8 flex-1">
+                  <div className="category-image-wrapper">
+                    {category.image && category.image.src && (
+                      <img
+                        src={category.image.src}
+                        alt={category.name}
+                        className="category-image"
+                      />
+                    )}
+                  </div>
+                  <h2>{category.name}</h2>
                 </div>
-                <h2>{category.name}</h2>
-              </div>
+              </Link>
             ))}
           </Carousel>
 
@@ -262,7 +267,7 @@ footerImage{
               transform-origin: center; /* Ensure scaling from the center */
             }
             .category-item:hover .category-image-wrapper {
-              border: 8px solid #ffffff;
+              border: 8px solid white;
               transform: scale(1.1);
             }
             .category-item:hover .category-image {
@@ -270,7 +275,7 @@ footerImage{
             }
           `}</style>
         </div>
-
+        {/* TREDNDING-TODAY SECTION*/}
         <div
           style={{
             backgroundImage: `url(${sectionStyles.backgroundImage})`,
@@ -292,24 +297,26 @@ footerImage{
             className="mb-8 flex"
           >
             {products.map((product) => (
-              <div
-                key={product.id}
-                className="product-item align-center mb-8 flex-1"
-              >
-                <div className="trending-image-wrapper mb-4">
-                  {product.images[0]?.src && (
-                    <img
-                      src={product.images[0].src}
-                      alt={product.name}
-                      className="product-image"
-                    />
-                  )}
+              <Link href={"product/" + product.slug}>
+                <div
+                  key={product.id}
+                  className="product-item align-center mb-8 flex-1"
+                >
+                  <div className="trending-image-wrapper mb-4">
+                    {product.images[0]?.src && (
+                      <img
+                        src={product.images[0].src}
+                        alt={product.name}
+                        className="product-image"
+                      />
+                    )}
+                  </div>
+                  <h2>{product.name}</h2>
+                  <p>₹{product.price}</p>
+                  <p>{stripHtml(product.description)}</p>
+                  {/* <p>{stripHtml(product.short_description)}</p> */}
                 </div>
-                <h2>{product.name}</h2>
-                <p>₹{product.price}</p>
-                <p>{stripHtml(product.description)}</p>
-                {/* <p>{stripHtml(product.short_description)}</p> */}
-              </div>
+              </Link>
             ))}
           </Carousel>
 
@@ -356,31 +363,32 @@ footerImage{
             }
           `}</style>
         </div>
-
-        <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
-          {categories.slice(0, 4).map((category) => (
-            <div
-              key={category.id}
-              className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group"
-            >
-              <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg relative">
-                {category.image && category.image.src && (
-                  <img
-                    src={category.image.src}
-                    alt={category.name}
-                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
-                  />
-                )}
-                <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-xl font-bold  w-full text-center py-2 transition-all duration-500 ease-out group-hover:bottom-14">
-                  {category.name}
-                </h1>
-                <button className="absolute bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out bg-blue-500 text-white px-4 pb-2 rounded-full opacity-0 group-hover:opacity-100">
-                  Shop Now
-                </button>
+        <Link href={"/full"}>
+          <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
+            {categories.slice(0, 4).map((category) => (
+              <div
+                key={category.id}
+                className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group"
+              >
+                <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg relative">
+                  {category.image && category.image.src && (
+                    <img
+                      src={category.image.src}
+                      alt={category.name}
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
+                    />
+                  )}
+                  <h1 className="absolute bottom-2 left-1/2 transform -translate-x-1/2 text-white text-xl font-bold  w-full text-center py-2 transition-all duration-500 ease-out group-hover:bottom-14">
+                    {category.name}
+                  </h1>
+                  <button className="absolute bottom-2 left-1/2 transform -translate-x-1/2 translate-y-full group-hover:translate-y-0 transition-all duration-500 ease-out bg-blue-500 text-white px-4 pb-2 rounded-full opacity-0 group-hover:opacity-100">
+                    Shop Now
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </Link>
         <div
           className="parallax h-auto z-2 bg-fixed bg-center bg-no-repeat bg-cover relative"
           style={{
@@ -394,7 +402,10 @@ footerImage{
               Shop Now!
             </button>
           </div>
-          <div className="h-1/2 flex bg-white items-center justify-center flex-col bottom-0 w-full">
+          <div
+            style={{ backgroundColor: "#a7b8a9" }}
+            className="h-1/2 flex  items-center justify-center flex-col bottom-0 w-full"
+          >
             <h1 className="text-center">Exclusive Handpicked!</h1>
             <div className="container mx-auto px-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -493,7 +504,10 @@ footerImage{
             objectFit="cover"
           /> */}
         </div>
-        <div className="bg-gray-800 text-white text-center p-8">
+        <div
+          className=" text-white text-center p-8"
+          style={{ backgroundColor: "#8a8d78" }}
+        >
           <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 flex justify-center items-center">
             <div className="col-span-1">
               <h2 className="text-xl font-bold mb-4">Visit Us</h2>
@@ -529,6 +543,7 @@ footerImage{
               <p>Customizing Policy</p>
             </div>
             <div className="col-span-1 md:col-span-3 lg:col-span-6 text-center mt-8">
+              <hr className="bg-white mb-4"></hr>
               <p>Copyright © 2024 The Artist. All rights reserved</p>
             </div>
           </div>
