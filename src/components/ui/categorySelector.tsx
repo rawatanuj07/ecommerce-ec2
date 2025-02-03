@@ -16,7 +16,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useValueStore } from "../../app/valueStore"; // Import the Zustand store
 import { motion } from "framer-motion"; // Import framer-motion
 

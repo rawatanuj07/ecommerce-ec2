@@ -7,7 +7,7 @@ import { RiShoppingCart2Fill } from "react-icons/ri";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 import { Carousel } from "../../../sanity.types"; // Adjust the path to your types file
 import { motion } from "framer-motion";
-import { Link } from "lucide-react";
+// import { Link } from "lucide-react";
 
 export interface WooCommerceCategory {
   id: number;
