@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
-import { Player } from "@lottiefiles/react-lottie-player";
+// import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
 
 // import Image from "next/image";
@@ -210,22 +210,22 @@ footerImage{
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
           <div className="absolute inset-0   z-0 block md:hidden">
-            <Player
+            {/* <Player
               src="lotties/pink.json"
               autoplay
               loop
               speed={1}
               style={{ width: "100%", height: "200%" }}
-            />
+            /> */}
           </div>
           <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
-            <Player
+            {/* <Player
               src="lotties/pink.json"
               autoplay
               loop
               speed={1}
               style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
-            />
+            /> */}
           </div>
           <div className="relative text-center mt-18 z-1">
             <h1 className=" text-green-950 px-2  bg-white bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
@@ -434,13 +434,13 @@ footerImage{
           >
             <div className=" relative">
               <div className="absolute inset-0 z-0 block mt-8">
-                <Player
+                {/* <Player
                   src="lotties/bgm.json"
                   autoplay
                   loop
                   speed={1}
                   style={{ width: "100%", height: "100%" }}
-                />
+                /> */}
               </div>
               <h1 className="text-center">Exclusive Handpicked!</h1>
               <div className="w-full  px-4">
@@ -472,13 +472,13 @@ footerImage{
       </div>
       <div className="relative z-0">
         <div className="hidden md:block absolute inset-0 z-0 block mt-8">
-          <Player
+          {/* <Player
             src="lotties/pink.json"
             autoplay
             loop
             speed={1}
             style={{ width: "100%", height: "100%" }}
-          />
+          /> */}
         </div>
         <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
           <div className="flex justify-center  items-center">
