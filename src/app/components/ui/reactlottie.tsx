@@ -8,10 +8,27 @@ interface LottieComponentProps {
   width: number;
 }
 
+interface Asset {
+  id: string;
+  [key: string]: unknown;
+}
+
+interface Layer {
+  id: string;
+  [key: string]: unknown;
+}
+
 interface AnimationData {
-  // Define the structure of the animation data if known
-  // For simplicity, we'll use an object type here
-  [key: string]: any;
+  v: string; // version
+  fr: number; // frame rate
+  ip: number; // in point
+  op: number; // out point
+  w: number; // width
+  h: number; // height
+  nm: string; // name
+  ddd: number; // 3D
+  assets: Asset[]; // assets array
+  layers: Layer[]; // layers array
 }
 
 const LottieComponent: React.FC<LottieComponentProps> = (props) => {
@@ -22,7 +39,7 @@ const LottieComponent: React.FC<LottieComponentProps> = (props) => {
   useEffect(() => {
     fetch(props.url)
       .then((response) => response.json())
-      .then((data) => setAnimationData(data));
+      .then((data: AnimationData) => setAnimationData(data));
   }, [props.url]);
 
   const defaultOptions = {
