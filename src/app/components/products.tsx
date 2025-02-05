@@ -211,24 +211,32 @@ footerImage{
           className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
-          <div className="absolute inset-0   z-0 block md:hidden">
-            <Player
-              src="lotties/pink.json"
-              autoplay
-              loop
-              speed={1}
-              style={{ width: "100%", height: "200%" }}
-            />
-          </div>
-          <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
-            <Player
-              src="lotties/pink.json"
-              autoplay
-              loop
-              speed={1}
-              style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
-            />
-          </div>
+          {typeof window !== "undefined" && (
+            <>
+              <div className="absolute inset-0   z-0 block md:hidden">
+                <Player
+                  src="lotties/pink.json"
+                  autoplay
+                  loop
+                  speed={1}
+                  style={{ width: "100%", height: "200%" }}
+                />
+              </div>
+              <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
+                <Player
+                  src="lotties/pink.json"
+                  autoplay
+                  loop
+                  speed={1}
+                  style={{
+                    width: "100%",
+                    height: "200%",
+                    transform: "scaleX(-1)",
+                  }}
+                />
+              </div>
+            </>
+          )}
           <div className="relative text-center mt-18 z-1">
             <h1 className=" text-green-950 px-2  bg-white bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
               CATEGORIES
@@ -435,15 +443,19 @@ footerImage{
             className="h-1/2 flex  items-center justify-center flex-col bottom-0 w-full"
           >
             <div className=" relative">
-              <div className="absolute inset-0 z-0 block mt-8">
-                <Player
-                  src="lotties/bgm.json"
-                  autoplay
-                  loop
-                  speed={1}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
+              {typeof window !== "undefined" && (
+                <>
+                  <div className="absolute inset-0 z-0 block mt-8">
+                    <Player
+                      src="lotties/bgm.json"
+                      autoplay
+                      loop
+                      speed={1}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </div>
+                </>
+              )}
               <h1 className="text-center">Exclusive Handpicked!</h1>
               <div className="w-full  px-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
@@ -473,15 +485,19 @@ footerImage{
         </div>
       </div>
       <div className="relative z-0">
-        <div className="hidden md:block absolute inset-0 z-0 block mt-8">
-          <Player
-            src="lotties/pink.json"
-            autoplay
-            loop
-            speed={1}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </div>
+        {typeof window !== "undefined" && (
+          <>
+            <div className="hidden md:block absolute inset-0 z-0 block mt-8">
+              <Player
+                src="lotties/pink.json"
+                autoplay
+                loop
+                speed={1}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+          </>
+        )}
         <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
           <div className="flex justify-center  items-center">
             <Carousel
