@@ -227,7 +227,7 @@ footerImage{
               url="lotties/pink.json"
               name="Pink Animation"
               height={400}
-              width={400}
+              width={300}
             />
           </div>
           <div
@@ -240,16 +240,9 @@ footerImage{
               height={370}
               width={400}
             />
-            {/* <Player
-              src="lotties/pink.json"
-              autoplay
-              loop
-              speed={1}
-              style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
-            /> */}
           </div>
 
-          <div className="relative text-center mt-18 z-1">
+          <div className="relative text-center mt-18 z-0">
             <h1 className=" text-green-950 px-2  bg-white md:bg-transparent bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
               CATEGORIES
             </h1>
@@ -310,6 +303,7 @@ footerImage{
               overflow: hidden;
               border-radius: 50%;
               transition: all 0.3s ease;
+              border: 2px solid white;
             }
                @media (min-width: 1024px) {
     .category-image-wrapper {
@@ -338,7 +332,9 @@ footerImage{
             backgroundImage: `url(${sectionStyles.backgroundImage})`,
           }}
         >
-          <h1 className="text-center text-4xl my-12 p-8">TRENDING TODAY!!!</h1>
+          <h1 className="text-center text-4xl sm:my-12 p-8">
+            TRENDING TODAY!!!
+          </h1>
           <Carousel
             responsive={responsives}
             showDots={false}
@@ -351,13 +347,15 @@ footerImage{
             containerClass="carousel-container"
             dotListClass="custom-dot-list-style"
             itemClass="flex justify-center"
-            className="mb-8 flex"
+            className="z-0 sm:mb-8 flex"
           >
             {products.map((product) => (
               <Link key={product.id} href={"product/" + product.slug}>
-                <div className="product-item align-center mb-8 flex-1">
-                  <h2 className="font-bold">{product.categories[0].name}</h2>
-                  <p className="text-green-950 text-md px-4">
+                <div className="product-item align-center md:mb-8 flex-1">
+                  <h2 className="font-bold text-lg mb-2">
+                    {product.categories[0].name}
+                  </h2>
+                  <p className="text-green-950 text-md mb-2 px-4">
                     {stripHtml(product.description)}
                   </p>
                   <div className="trending-image-wrapper mb-1">
@@ -369,10 +367,10 @@ footerImage{
                       />
                     )}
                   </div>
-                  <h1 className="text-green-950 text-2xl">{product.name}</h1>
+                  <h1 className="text-green-950 text-2xl ">{product.name}</h1>
 
-                  <div className="flex flex-row text-black justify-between items-center w-full px-8">
-                    <div className="flex flex-col">
+                  <div className="flex flex-row italic text-black justify-between items-center w-full px-8">
+                    <div className="flex font-md  flex-col">
                       <p className="text-red-700">
                         <del>{product.regular_price}</del>
                       </p>{" "}
@@ -407,7 +405,7 @@ footerImage{
             }
             .trending-image-wrapper {
               position: relative;
-              width: 90%;
+              width: 85%;
               height: 400px; /* Set a fixed height for the images */
               margin: 0 auto;
               overflow: hidden;
@@ -431,7 +429,7 @@ footerImage{
           `}</style>
         </div>
 
-        <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
+        <div className="h-auto bg-white z-1 flex flex-wrap justify-center items-center p-4 overflow-hidden">
           {categories.slice(0, 4).map((category) => (
             <Link
               className="category-item mb-8 flex-col lg:flex-1 max-w-sm mx-2 p-4 relative group"
@@ -460,7 +458,7 @@ footerImage{
         </div>
 
         <div
-          className="parallax h-auto z-2 bg-fixed bg-center bg-no-repeat bg-cover relative"
+          className="parallax h-auto z-1 bg-fixed bg-center bg-no-repeat bg-cover relative"
           style={{
             backgroundImage: `url(${sectionStyles.parallaxImage})`,
           }}

@@ -53,11 +53,7 @@ const LottieComponent: React.FC<LottieComponentProps> = (props) => {
 
   return (
     <div className="lottie-container">
-      <Lottie
-        options={defaultOptions}
-        height={props.height}
-        width={props.width}
-      />
+      <Lottie options={defaultOptions} height={props.height} width="100%" />
     </div>
   );
 };
