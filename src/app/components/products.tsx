@@ -17,6 +17,7 @@ const LottieComponent = dynamic(() => import("../components/ui/reactlottie"), {
 export default function Products() {
   const [products, setProducts] = useState<
     {
+      [x: string]: any;
       id: number;
       name: string;
       images: { src: string }[];
@@ -24,6 +25,7 @@ export default function Products() {
       description: string;
       short_description: string;
       slug: string;
+      categories: [{ name: string }];
     }[]
   >([]);
   const [testimonials, setTestimonials] = useState<
@@ -36,7 +38,13 @@ export default function Products() {
   >([]);
 
   const [categories, setCategories] = useState<
-    { id: number; name: string; slug: string; image: { src: string } | null }[]
+    {
+      id: number;
+      name: string;
+      description: string;
+      slug: string;
+      image: { src: string } | null;
+    }[]
   >([]);
   const [sectionStyles, setSectionStyles] = useState({
     footerImage: "",
@@ -164,7 +172,7 @@ footerImage{
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 1024 },
-      items: 6,
+      items: 4,
     },
     desktop: {
       breakpoint: { max: 1024, min: 768 },
@@ -218,11 +226,20 @@ footerImage{
             <LottieComponent
               url="lotties/pink.json"
               name="Pink Animation"
-              height={200}
-              width={200}
+              height={400}
+              width={400}
             />
           </div>
-          <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
+          <div
+            className="absolute inset-0 mt-24  z-0 block md:hidden "
+            style={{ transform: "scaleX(-1)" }}
+          >
+            <LottieComponent
+              url="lotties/pink.json"
+              name="Pink Animation"
+              height={340}
+              width={400}
+            />
             {/* <Player
               src="lotties/pink.json"
               autoplay
@@ -231,8 +248,9 @@ footerImage{
               style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
             /> */}
           </div>
+
           <div className="relative text-center mt-18 z-1">
-            <h1 className=" text-green-950 px-2  bg-white bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
+            <h1 className=" text-green-950 px-2  bg-white md:bg-transparent bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
               CATEGORIES
             </h1>
 
@@ -265,6 +283,9 @@ footerImage{
                     <h1 className="mt-6 px-2 font-bold text-2xl bg-white bg-opacity-70 border rounded-lg">
                       {category.name}
                     </h1>
+                    <h1 className=" mt-0 sm:mt-6 px-2 font-sm text-xl md:text-sm text-black bg-white md:bg-transparent bg-opacity-70 border rounded-lg">
+                      {category.description}
+                    </h1>
                   </div>
                 </Link>
               ))}
@@ -280,15 +301,21 @@ footerImage{
               align-items: center;
               flex: 1;
             }
+
             .category-image-wrapper {
               position: relative;
-              width: 200px;
-              height: 200px;
+              width: 245px;
+              height: 245px;
               margin: 0 auto;
               overflow: hidden;
               border-radius: 50%;
               transition: all 0.3s ease;
             }
+               @media (min-width: 1024px) {
+    .category-image-wrapper {
+      width: 200px;
+      height: 200px;
+    }
             .category-image {
               width: 100%;
               height: 100%;
@@ -329,6 +356,9 @@ footerImage{
             {products.map((product) => (
               <Link key={product.id} href={"product/" + product.slug}>
                 <div className="product-item align-center mb-8 flex-1">
+                  <h2>{product.categories[0].name}</h2>
+                  <h1>{product.name}</h1>
+
                   <div className="trending-image-wrapper mb-4">
                     {product.images[0]?.src && (
                       <img
@@ -338,10 +368,13 @@ footerImage{
                       />
                     )}
                   </div>
-                  <h2>{product.name}</h2>
-                  <p>₹{product.price}</p>
+                  <div className="flex flex-row justify-between items-center w-full px-4">
+                    {" "}
+                    <p>₹{product.price}</p>
+                    <p>{stripHtml(product.short_description)}</p>
+                  </div>
+
                   <p>{stripHtml(product.description)}</p>
-                  {/* <p>{stripHtml(product.short_description)}</p> */}
                 </div>
               </Link>
             ))}
@@ -446,7 +479,9 @@ footerImage{
                   style={{ width: "100%", height: "100%" }}
                 /> */}
               </div>
-              <h1 className="text-center">Exclusive Handpicked!</h1>
+              <h1 className=" text-green-950 px-2  bg-white md:bg-transparent bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
+                Exclusive Handpicked!
+              </h1>
               <div className="w-full  px-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
                   {categories.slice(0, 4).map((category) => (
@@ -483,6 +518,14 @@ footerImage{
             speed={1}
             style={{ width: "100%", height: "100%" }}
           /> */}
+        </div>
+        <div className="absolute inset-0  hidden z-0 block md:block ">
+          <LottieComponent
+            url="lotties/pink.json"
+            name="Pink Animation"
+            height={1040}
+            width={1500}
+          />
         </div>
         <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
           <div className="flex justify-center  items-center">
