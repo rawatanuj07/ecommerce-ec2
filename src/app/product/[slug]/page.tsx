@@ -24,11 +24,7 @@ async function ProductPage(props: { params: Promise<{ slug: string }> }) {
   console.log("product iz", product[0].images[0]?.src);
 
   const isOutOfStock = product[0].stock_status !== "instock";
-  const sizes: SizeOption[] = [
-    { size: "Small", price: 9000 },
-    { size: "Medium", price: 15000 },
-    { size: "Large", price: 12000 },
-  ];
+
   return (
     <div className="container mx-auto  px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

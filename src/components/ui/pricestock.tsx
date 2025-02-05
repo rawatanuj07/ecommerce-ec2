@@ -6,7 +6,7 @@ interface SizeOption {
   price: string;
 }
 
-export default function Pricestock(product: any) {
+export default function Pricestock() {
   const sizes: SizeOption[] = [
     { size: "Small", price: "9000" },
     { size: "Medium", price: "15000" },
