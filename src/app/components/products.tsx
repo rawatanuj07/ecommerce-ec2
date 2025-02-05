@@ -4,9 +4,12 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
-import { Player } from "@lottiefiles/react-lottie-player";
+// import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
-
+// Dynamically import the Lottie player with no SSR
+const Player = dynamic(() => import("@lottiefiles/react-lottie-player"), {
+  ssr: false,
+});
 // import Image from "next/image";
 
 export default function Products() {
