@@ -6,6 +6,11 @@ import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
 // import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+// Dynamically import the LottieComponent with no SSR
+const LottieComponent = dynamic(() => import("../components/ui/reactlottie"), {
+  ssr: false,
+});
 
 // import Image from "next/image";
 
@@ -209,14 +214,13 @@ footerImage{
           className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
-          <div className="absolute inset-0   z-0 block md:hidden">
-            {/* <Player
-              src="lotties/pink.json"
-              autoplay
-              loop
-              speed={1}
-              style={{ width: "100%", height: "200%" }}
-            /> */}
+          <div className="absolute inset-0 z-0 block md:hidden">
+            <LottieComponent
+              url="lotties/pink.json"
+              name="Pink Animation"
+              height={200}
+              width={200}
+            />
           </div>
           <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
             {/* <Player
