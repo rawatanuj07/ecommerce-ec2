@@ -214,7 +214,7 @@ footerImage{
           className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
-          <div className="absolute inset-0 z-0 block md:hidden">
+          <div className="absolute inset-0 z-0 block md:hidden ">
             <LottieComponent
               url="lotties/pink.json"
               name="Pink Animation"

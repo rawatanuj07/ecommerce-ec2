@@ -8,8 +8,16 @@ interface LottieComponentProps {
   width: number;
 }
 
+interface AnimationData {
+  // Define the structure of the animation data if known
+  // For simplicity, we'll use an object type here
+  [key: string]: any;
+}
+
 const LottieComponent: React.FC<LottieComponentProps> = (props) => {
-  const [animationData, setAnimationData] = useState<any>(null);
+  const [animationData, setAnimationData] = useState<AnimationData | null>(
+    null
+  );
 
   useEffect(() => {
     fetch(props.url)
