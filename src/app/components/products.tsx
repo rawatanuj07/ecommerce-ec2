@@ -25,6 +25,7 @@ export default function Products() {
       short_description: string;
       slug: string;
       categories: [{ name: string }];
+      regular_price: string;
     }[]
   >([]);
   const [testimonials, setTestimonials] = useState<
@@ -349,16 +350,17 @@ footerImage{
             transitionDuration={500}
             containerClass="carousel-container"
             dotListClass="custom-dot-list-style"
-            itemClass=" flex  justify-center"
+            itemClass="flex justify-center"
             className="mb-8 flex"
           >
             {products.map((product) => (
               <Link key={product.id} href={"product/" + product.slug}>
                 <div className="product-item align-center mb-8 flex-1">
-                  <h2>{product.categories[0].name}</h2>
-                  <h1>{product.name}</h1>
-
-                  <div className="trending-image-wrapper mb-4">
+                  <h2 className="font-bold">{product.categories[0].name}</h2>
+                  <p className="text-green-950 text-md px-4">
+                    {stripHtml(product.description)}
+                  </p>
+                  <div className="trending-image-wrapper mb-1">
                     {product.images[0]?.src && (
                       <img
                         src={product.images[0].src}
@@ -367,13 +369,18 @@ footerImage{
                       />
                     )}
                   </div>
-                  <div className="flex flex-row justify-between items-center w-full px-4">
-                    {" "}
-                    <p>₹{product.price}</p>
+                  <h1 className="text-green-950 text-2xl">{product.name}</h1>
+
+                  <div className="flex flex-row text-black justify-between items-center w-full px-8">
+                    <div className="flex flex-col">
+                      <p className="text-red-700">
+                        <del>{product.regular_price}</del>
+                      </p>{" "}
+                      <p>₹{product.price}</p>
+                    </div>
+
                     <p>{stripHtml(product.short_description)}</p>
                   </div>
-
-                  <p>{stripHtml(product.description)}</p>
                 </div>
               </Link>
             ))}
@@ -387,6 +394,7 @@ footerImage{
               flex-direction: column;
               align-items: center;
               flex: 1;
+              height: 100%; /* Ensure all product items have the same height */
             }
             .product-image-wrapper {
               position: relative;
@@ -400,7 +408,7 @@ footerImage{
             .trending-image-wrapper {
               position: relative;
               width: 90%;
-              height: 9 0%;
+              height: 400px; /* Set a fixed height for the images */
               margin: 0 auto;
               overflow: hidden;
               border-radius: 5%;
@@ -478,11 +486,11 @@ footerImage{
                   style={{ width: "100%", height: "100%" }}
                 /> */}
               </div>
-              <h1 className=" text-green-950 px-2  bg-white md:bg-transparent bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
+              <h1 className=" text-center text-green-950 px-2  bg-white md:bg-transparent bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 ">
                 Exclusive Handpicked!
               </h1>
               <div className="w-full  px-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full">
                   {categories.slice(0, 4).map((category) => (
                     <div
                       key={category.id}
