@@ -4,12 +4,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
-// import { Player } from "@lottiefiles/react-lottie-player";
+import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
-// Dynamically import the Lottie player with no SSR
-const Player = dynamic(() => import("@lottiefiles/react-lottie-player"), {
-  ssr: false,
-});
+
 // import Image from "next/image";
 
 export default function Products() {
@@ -45,41 +42,40 @@ export default function Products() {
   });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const fetchProducts = async () => {
-        try {
-          const res = await fetch("/api/fetchh?type=products&tag=trending");
-          if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-          }
-          const data = await res.json();
-          setProducts(data);
-          console.log("tag products is", data);
-        } catch (error) {
-          console.error("Error fetching products:", error);
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("/api/fetchh?type=products&tag=trending");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
-      };
+        const data = await res.json();
+        setProducts(data);
+        console.log("tag products is", data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-      const fetchCategories = async () => {
-        try {
-          const res = await fetch("/api/fetchh?type=categories");
-          if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-          }
-          const data = await res.json();
-          const filteredCategories = data.filter(
-            (category: { name: string }) => category.name !== "Uncategorized"
-          );
-          setCategories(filteredCategories);
-        } catch (error) {
-          console.error("Error fetching categories:", error);
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/fetchh?type=categories");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
         }
-      };
+        const data = await res.json();
+        const filteredCategories = data.filter(
+          (category: { name: string }) => category.name !== "Uncategorized"
+        );
+        setCategories(filteredCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
 
-      const fetchSectionStyles = async () => {
-        try {
-          const data = await client.fetch(
-            `*[_type == "bodyTop"][0]{
+    const fetchSectionStyles = async () => {
+      try {
+        const data = await client.fetch(
+          `*[_type == "bodyTop"][0]{
 footerImage{
                 asset->{
                   url
@@ -98,23 +94,23 @@ footerImage{
               }
             }
           }`
-          );
-          setSectionStyles({
-            backgroundImage: data.backgroundImage.asset.url,
-            categoriesBackgroundColor: data.categoriesBackgroundColor,
-            textColor: data.textColor,
-            parallaxImage: data.parallaxImage.asset.url, // Set parallax image
-            footerImage: data.footerImage.asset.url,
-          });
-        } catch (error) {
-          console.error("Error fetching section styles:", error);
-        }
-      };
+        );
+        setSectionStyles({
+          backgroundImage: data.backgroundImage.asset.url,
+          categoriesBackgroundColor: data.categoriesBackgroundColor,
+          textColor: data.textColor,
+          parallaxImage: data.parallaxImage.asset.url, // Set parallax image
+          footerImage: data.footerImage.asset.url,
+        });
+      } catch (error) {
+        console.error("Error fetching section styles:", error);
+      }
+    };
 
-      const fetchTestimonials = async () => {
-        try {
-          const data = await client.fetch(
-            `*[_type == "bodyTop"][0]{
+    const fetchTestimonials = async () => {
+      try {
+        const data = await client.fetch(
+          `*[_type == "bodyTop"][0]{
            
             testimonials[]{
               name,
@@ -127,20 +123,19 @@ footerImage{
               }
             }
           }`
-          );
-          setTestimonials(data.testimonials);
-          console.log("testimonials data is", data.testimonials);
-        } catch (error) {
-          console.error("Error fetching testimonials:", error);
-        }
-      };
+        );
+        setTestimonials(data.testimonials);
+        console.log("testimonials data is", data.testimonials);
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      }
+    };
 
-      fetchProducts();
-      fetchCategories();
-      fetchTestimonials();
+    fetchProducts();
+    fetchCategories();
+    fetchTestimonials();
 
-      fetchSectionStyles();
-    }
+    fetchSectionStyles();
   }, []);
 
   const responsives = {
@@ -214,32 +209,24 @@ footerImage{
           className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
-          {typeof window !== "undefined" && (
-            <>
-              <div className="absolute inset-0   z-0 block md:hidden">
-                <Player
-                  src="lotties/pink.json"
-                  autoplay
-                  loop
-                  speed={1}
-                  style={{ width: "100%", height: "200%" }}
-                />
-              </div>
-              <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
-                <Player
-                  src="lotties/pink.json"
-                  autoplay
-                  loop
-                  speed={1}
-                  style={{
-                    width: "100%",
-                    height: "200%",
-                    transform: "scaleX(-1)",
-                  }}
-                />
-              </div>
-            </>
-          )}
+          <div className="absolute inset-0   z-0 block md:hidden">
+            <Player
+              src="lotties/pink.json"
+              autoplay
+              loop
+              speed={1}
+              style={{ width: "100%", height: "200%" }}
+            />
+          </div>
+          <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
+            <Player
+              src="lotties/pink.json"
+              autoplay
+              loop
+              speed={1}
+              style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
+            />
+          </div>
           <div className="relative text-center mt-18 z-1">
             <h1 className=" text-green-950 px-2  bg-white bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
               CATEGORIES
@@ -320,7 +307,7 @@ footerImage{
             backgroundImage: `url(${sectionStyles.backgroundImage})`,
           }}
         >
-          <h1 className="text-center text-4xl my-12 p-8">TRENDING-TODAY!!!</h1>
+          <h1 className="text-center text-4xl my-12 p-8">TRENDING TODAY!!!</h1>
           <Carousel
             responsive={responsives}
             showDots={false}
@@ -446,19 +433,15 @@ footerImage{
             className="h-1/2 flex  items-center justify-center flex-col bottom-0 w-full"
           >
             <div className=" relative">
-              {typeof window !== "undefined" && (
-                <>
-                  <div className="absolute inset-0 z-0 block mt-8">
-                    <Player
-                      src="lotties/bgm.json"
-                      autoplay
-                      loop
-                      speed={1}
-                      style={{ width: "100%", height: "100%" }}
-                    />
-                  </div>
-                </>
-              )}
+              <div className="absolute inset-0 z-0 block mt-8">
+                <Player
+                  src="lotties/bgm.json"
+                  autoplay
+                  loop
+                  speed={1}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
               <h1 className="text-center">Exclusive Handpicked!</h1>
               <div className="w-full  px-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
@@ -488,19 +471,15 @@ footerImage{
         </div>
       </div>
       <div className="relative z-0">
-        {typeof window !== "undefined" && (
-          <>
-            <div className="hidden md:block absolute inset-0 z-0 block mt-8">
-              <Player
-                src="lotties/pink.json"
-                autoplay
-                loop
-                speed={1}
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-          </>
-        )}
+        <div className="hidden md:block absolute inset-0 z-0 block mt-8">
+          <Player
+            src="lotties/pink.json"
+            autoplay
+            loop
+            speed={1}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
         <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
           <div className="flex justify-center  items-center">
             <Carousel
