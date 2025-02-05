@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Lottie from "react-lottie";
 
-const LottieComponent = (props: any) => {
-  const [animationData, setAnimationData] = useState(null);
+interface LottieComponentProps {
+  url: string;
+  name: string;
+  height: number;
+  width: number;
+}
+
+const LottieComponent: React.FC<LottieComponentProps> = (props) => {
+  const [animationData, setAnimationData] = useState<any>(null);
 
   useEffect(() => {
     fetch(props.url)
