@@ -12,9 +12,9 @@ export default function ProductFilter() {
         className="max-w-4xl "
         formatOptions={{ style: "currency", currency: "USD" }}
         label="Select a budget"
-        maxValue={1000}
+        maxValue={30000}
         minValue={0}
-        step={50}
+        step={1000}
         value={priceRange}
         onChange={(value) => {
           // Ensure value is a tuple [number, number]

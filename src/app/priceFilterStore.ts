@@ -7,7 +7,7 @@ interface FilterState {
 }
 
 export const useFilterStore = create<FilterState>((set) => ({
-  priceRange: [0, 1000], // Initial range
+  priceRange: [4000, 26000], // Initial range
   setPriceRange: (range) => {
     console.log("Setting price range in store:", range); // Log here
     set({ priceRange: range });

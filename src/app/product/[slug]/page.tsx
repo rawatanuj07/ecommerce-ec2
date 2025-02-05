@@ -3,24 +3,32 @@ import { getProductBySlug } from "../../utils/getProductBySlug";
 // import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Pricestock from "@/components/ui/pricestock";
 // import AddToBasketButton from "@/components/AddToBasketButton";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
-
+interface SizeOption {
+  size: string;
+  price: number;
+}
 async function ProductPage(props: { params: Promise<{ slug: string }> }) {
   const { params } = props; // Destructure params from props
   const { slug } = await params; // Resolve the promise to extract slug
 
   const product = await getProductBySlug(slug);
-
+  console.log("productPriZEEEEE", product[0].price);
   if (!product) {
     return notFound();
   }
   console.log("product iz", product[0].images[0]?.src);
 
   const isOutOfStock = product[0].stock_status !== "instock";
-
+  const sizes: SizeOption[] = [
+    { size: "Small", price: 9000 },
+    { size: "Medium", price: 15000 },
+    { size: "Large", price: 12000 },
+  ];
   return (
     <div className="container mx-auto  px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -53,11 +61,20 @@ async function ProductPage(props: { params: Promise<{ slug: string }> }) {
           <div>
             <h1 className="text-3xl font-bold mb-4">{product[0].name}</h1>
             <h4 className="font-semibold">
-              Stock: <span>{product[0].stock_starus}</span>
+              Stock: <span>{product[0].stock_status}</span>
             </h4>
+            {/* <select className="mb-4 p-2 border rounded">
+              <option value="">Select a size</option>
+              {sizes.map((sizeOption) => (
+                <option key={sizeOption.size} value={sizeOption.size}>
+                  {sizeOption.size} - £{sizeOption.price}
+                </option>
+              ))}
+            </select>
             <div className="text-xl font-semibold mb-4">
               £{product[0].price}
-            </div>
+            </div> */}
+            <Pricestock data={product[0].price} />
             <div className="prose max-w-none mb-6">
               {/* {Array.isArray(product.description) && (
                 <PortableText value={product.description} />
