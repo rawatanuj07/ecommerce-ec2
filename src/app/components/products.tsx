@@ -17,7 +17,6 @@ const LottieComponent = dynamic(() => import("../components/ui/reactlottie"), {
 export default function Products() {
   const [products, setProducts] = useState<
     {
-      [x: string]: any;
       id: number;
       name: string;
       images: { src: string }[];
@@ -237,7 +236,7 @@ footerImage{
             <LottieComponent
               url="lotties/pink.json"
               name="Pink Animation"
-              height={340}
+              height={370}
               width={400}
             />
             {/* <Player
