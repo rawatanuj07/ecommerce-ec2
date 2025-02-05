@@ -276,7 +276,7 @@ footerImage{
                     <h1 className="mt-6 px-2 font-bold text-2xl bg-white bg-opacity-70 border rounded-lg">
                       {category.name}
                     </h1>
-                    <h1 className=" mt-0 sm:mt-6 px-2 font-sm text-xl md:text-sm text-black bg-white md:bg-transparent bg-opacity-70 border rounded-lg">
+                    <h1 className=" mt-0 sm:mt-6 px-2 font-sm text-xl md:text-sm text-black italic bg-white md:bg-transparent bg-opacity-70 border rounded-lg">
                       {category.description}
                     </h1>
                   </div>
@@ -307,8 +307,8 @@ footerImage{
             }
                @media (min-width: 1024px) {
     .category-image-wrapper {
-      width: 200px;
-      height: 200px;
+      width: 300px;
+      height: 300px;
     }
             .category-image {
               width: 100%;
