@@ -149,7 +149,14 @@ const Header = () => {
           <h2 className="text-4xl text-center font-semibold mb-8">LOGO</h2>
           <ul className="space-y-6">
             {navigationItems?.map((item, index) => (
-              <li key={index}>
+              <li
+                key={index}
+                onClick={() => {
+                  if (item.label?.toLowerCase() !== "collections") {
+                    toggleSidebar();
+                  }
+                }}
+              >
                 {item.label?.toLowerCase() === "collections" ? (
                   <Dropdown
                     isSidebarOpen={isSidebarOpen}

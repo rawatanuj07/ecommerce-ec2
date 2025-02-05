@@ -4,10 +4,14 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { stripHtml } from "../utils/sttripHtml";
 import { client } from "../../sanity/lib/client"; // Adjust the path based on your project structure
+import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
+
 // import Image from "next/image";
 
 export default function Products() {
+  const animationURL = "/public/lotties/pink.json";
+
   const [products, setProducts] = useState<
     {
       id: number;
@@ -204,41 +208,66 @@ footerImage{
         }}
       >
         <div
-          className="h-1/2 "
+          className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
-          <h1 className="text-center text-4xl p-8">Our-Categories</h1>
-          <Carousel
-            responsive={responsive}
-            showDots={false}
-            infinite
-            autoPlay
-            autoPlaySpeed={3000}
-            keyBoardControl
-            customTransition="transform 0.5s ease-in-out"
-            transitionDuration={500}
-            containerClass="carousel-container"
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-20-px flex justify-center"
-            className="mb-8 flex"
-          >
-            {categories.map((category) => (
-              <Link href="/full" key={category.id}>
-                <div className="category-item mb-8 flex-1">
-                  <div className="category-image-wrapper">
-                    {category.image && category.image.src && (
-                      <img
-                        src={category.image.src}
-                        alt={category.name}
-                        className="category-image"
-                      />
-                    )}
+          <div className="absolute inset-0   z-0 block md:hidden">
+            <Player
+              src="lotties/pink.json"
+              autoplay
+              loop
+              speed={1}
+              style={{ width: "100%", height: "200%" }}
+            />
+          </div>
+          <div className="absolute inset-0 mt-48  z-0 block md:hidden ">
+            <Player
+              src="lotties/pink.json"
+              autoplay
+              loop
+              speed={1}
+              style={{ width: "100%", height: "200%", transform: "scaleX(-1)" }}
+            />
+          </div>
+          <div className="relative text-center mt-18 z-1">
+            <h1 className=" text-green-950 px-2  bg-white bg-opacity-70 border rounded-lg text-5xl my-6 mb-12 z-1 inline-block mx-auto">
+              CATEGORIES
+            </h1>
+
+            <Carousel
+              responsive={responsive}
+              showDots={false}
+              infinite
+              autoPlay
+              autoPlaySpeed={3000}
+              keyBoardControl
+              customTransition="transform 0.5s ease-in-out"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-20-px flex justify-center"
+              className="mb-4 sm:mb-8 flex "
+            >
+              {categories.map((category) => (
+                <Link href="/full" key={category.id}>
+                  <div className="category-item mb-2 sm:mb-8 flex-1 ">
+                    <div className="category-image-wrapper">
+                      {category.image && category.image.src && (
+                        <img
+                          src={category.image.src}
+                          alt={category.name}
+                          className="category-image"
+                        />
+                      )}
+                    </div>
+                    <h1 className="mt-6 px-2 font-bold text-2xl bg-white bg-opacity-70 border rounded-lg">
+                      {category.name}
+                    </h1>
                   </div>
-                  <h2>{category.name}</h2>
-                </div>
-              </Link>
-            ))}
-          </Carousel>
+                </Link>
+              ))}
+            </Carousel>
+          </div>
 
           <style jsx>{`
             .category-item {
@@ -266,7 +295,7 @@ footerImage{
               transform-origin: center; /* Ensure scaling from the center */
             }
             .category-item:hover .category-image-wrapper {
-              border: 8px solid white;
+              border: 8px solid #0f3a00;
               transform: scale(1.1);
             }
             .category-item:hover .category-image {
@@ -362,8 +391,12 @@ footerImage{
 
         <div className="h-auto bg-white z-3 flex flex-wrap justify-center items-center p-4 overflow-hidden">
           {categories.slice(0, 4).map((category) => (
-            <Link key={category.id} href={"/full"}>
-              <div className="category-item mb-8 flex-col sm:flex-1 max-w-sm mx-2 p-4 relative group">
+            <Link
+              className="category-item mb-8 flex-col lg:flex-1 max-w-sm mx-2 p-4 relative group"
+              key={category.id}
+              href={"/full"}
+            >
+              <div>
                 <div className="category-image-wrapper rounded-lg overflow-hidden shadow-lg relative">
                   {category.image && category.image.src && (
                     <img
@@ -398,148 +431,175 @@ footerImage{
             </button>
           </div>
           <div
-            style={{ backgroundColor: "#a7b8a9" }}
+            style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
             className="h-1/2 flex  items-center justify-center flex-col bottom-0 w-full"
           >
-            <h1 className="text-center">Exclusive Handpicked!</h1>
-            <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {categories.slice(0, 4).map((category) => (
-                  <div
-                    key={category.id}
-                    className="category-item flex flex-col max-w-md mx-auto p-4"
-                  >
-                    <div className="rounded-lg overflow-hidden shadow-lg">
-                      {category.image && category.image.src && (
-                        <img
-                          src={category.image.src}
-                          alt={category.name}
-                          className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
-                        />
-                      )}
+            <div className=" relative">
+              <div className="absolute inset-0 z-0 block mt-8">
+                <Player
+                  src="lotties/bgm.json"
+                  autoplay
+                  loop
+                  speed={1}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
+              <h1 className="text-center">Exclusive Handpicked!</h1>
+              <div className="w-full  px-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                  {categories.slice(0, 4).map((category) => (
+                    <div
+                      key={category.id}
+                      className="category-item flex flex-col max-w-md mx-auto p-4"
+                    >
+                      <div className="rounded-lg overflow-hidden shadow-lg">
+                        {category.image && category.image.src && (
+                          <img
+                            src={category.image.src}
+                            alt={category.name}
+                            className="w-full h-full object-cover transition-transform duration-300 ease-in-out transform hover:scale-105"
+                          />
+                        )}
+                      </div>
+                      <h2 className="text-center mt-4 text-lg font-semibold">
+                        {category.name}
+                      </h2>
                     </div>
-                    <h2 className="text-center mt-4 text-lg font-semibold">
-                      {category.name}
-                    </h2>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="h-auto  bg-white bottom-0 w-full">
-        <div className="flex justify-center items-center">
-          <Carousel
-            responsive={responsivet}
-            showDots={false}
-            infinite
-            autoPlay
-            autoPlaySpeed={3000}
-            keyBoardControl
-            customTransition="transform 0.5s ease-in-out"
-            transitionDuration={500}
-            containerClass="carousel-container"
-            dotListClass="custom-dot-list-style"
-            itemClass="carousel-item-padding-20-px flex justify-center"
-            className="mb-8 w-full sm:w-1/2  flex items-center justify-center "
-          >
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="flex flex-col space-y-8  items-center justify-center text-center p-4"
-              >
-                <h1 className="text-4xl my-16 font-bold mb-4">
-                  What Our Customers Are Saying
-                </h1>
-                <p className="mb-4">{testimonial.description}</p>
-                {testimonial.image && testimonial.image.asset && (
-                  <img
-                    src={testimonial.image.asset.url}
-                    alt={testimonial.name}
-                    className="w-24 h-24 rounded-full mb-4"
-                  />
-                )}
-                <h2 className="text-lg font-semibold">{testimonial.name}</h2>
-                <p className="text-sm text-gray-600">{testimonial.location}</p>
-                <button className="mt-4 px-4 py-2 border border-gray-800 rounded-full text-gray-800">
-                  Review
-                </button>
-              </div>
-            ))}
-          </Carousel>
-        </div>
-        {/* Feedback Section */}
-        <div className="flex justify-center items-center mt-8">
-          {/* <h1>Leave a Feedback</h1> */}
-          <input
-            type="text"
-            placeholder="Your feedback is important!"
-            className="w-full max-w-lg p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <div className="relative z-0">
+        <div className="hidden md:block absolute inset-0 z-0 block mt-8">
+          <Player
+            src="lotties/pink.json"
+            autoplay
+            loop
+            speed={1}
+            style={{ width: "100%", height: "100%" }}
           />
-          <button className="p-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">
-            Submit
-          </button>
         </div>
-        {/* Footer Image */}
+        <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
+          <div className="flex justify-center  items-center">
+            <Carousel
+              responsive={responsivet}
+              showDots={false}
+              infinite
+              autoPlay
+              autoPlaySpeed={3000}
+              keyBoardControl
+              customTransition="transform 0.5s ease-in-out"
+              transitionDuration={500}
+              containerClass="carousel-container"
+              dotListClass="custom-dot-list-style"
+              itemClass="carousel-item-padding-20-px flex justify-center"
+              className="mb-8 w-full sm:w-1/2  flex items-center justify-center "
+            >
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col bg-white bg-opacity-80 mt-12 sm:mt-24 border rounded-xl space-y-8  items-center justify-center text-center p-4"
+                >
+                  <h1 className="text-6xl underline font-bold mb-4">
+                    Testimonials
+                  </h1>
+                  <h1 className="text-4xl my-16 font-bold mb-4">
+                    What Our Customers Are Saying
+                  </h1>
+                  <p className="mb-4">{testimonial.description}</p>
+                  {testimonial.image && testimonial.image.asset && (
+                    <img
+                      src={testimonial.image.asset.url}
+                      alt={testimonial.name}
+                      className="w-24 h-24 rounded-full mb-4"
+                    />
+                  )}
+                  <h2 className="text-lg font-semibold">{testimonial.name}</h2>
+                  <p className="text-sm text-gray-600">
+                    {testimonial.location}
+                  </p>
+                  <button className="mt-4 px-4 py-2 border border-gray-800 rounded-full text-gray-800">
+                    Review
+                  </button>
+                </div>
+              ))}
+            </Carousel>
+          </div>
+          {/* Feedback Section */}
+          <div className="flex justify-center items-center mt-8">
+            {/* <h1>Leave a Feedback</h1> */}
+            <input
+              type="text"
+              placeholder="Your feedback is important!"
+              className="w-full max-w-lg p-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <button className="p-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600">
+              Submit
+            </button>
+          </div>
+          {/* Footer Image */}
 
-        <div className="relative w-full">
-          <div
-            style={{
-              backgroundImage: `url(https://vikkaso.com/public/asset/images/background_footer_img.png)`,
-              paddingBottom: "280px",
-              backgroundRepeat: "repeat-x ",
-              backgroundPosition: "center-bottom",
-            }}
-          ></div>
-          {/* <Image
+          <div className="relative w-full">
+            <div
+              style={{
+                backgroundImage: `url(https://vikkaso.com/public/asset/images/background_footer_img.png)`,
+                paddingBottom: "280px",
+                backgroundRepeat: "repeat-x ",
+                backgroundPosition: "center-bottom",
+              }}
+            ></div>
+            {/* <Image
             src={sectionStyles.footerImage}
             alt="footer"
             layout="fill"
             objectFit="cover"
           /> */}
-        </div>
-        <div
-          className=" text-white text-center p-8"
-          style={{ backgroundColor: "#8a8d78" }}
-        >
-          <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 flex justify-center items-center">
-            <div className="col-span-1">
-              <h2 className="text-xl font-bold mb-4">Visit Us</h2>
-              <p>
-                C-XX, Lorem Ipsum APARTMENT, GROUND FLOOR, Diemet Ozgur, C -
-                DREAM - 405601, ( hac. ), Ut
-              </p>
-            </div>
-            <div className="col-span-1">
-              <h2 className="text-xl font-bold mb-4">Need Support</h2>
-              <p>Call +91 982xxxxxxx</p>
-              <p>Call +91 141xxxxxxx</p>
-              <p>Mon - Sat : 10.00 am - 7.00 pm</p>
-            </div>
-            <div className="col-span-1">
-              <h2 className="text-xl font-bold mb-4">Contact via Email</h2>
-              <p>artist@gmail.com</p>
-              <p>theartist@gmail.com</p>
-              <p>We&apos;ll get back to you.</p>
-            </div>
-            <div className="col-span-1">
-              <h2 className="text-xl font-bold mb-4">Follow Us</h2>
-              <p>Instagram</p>
-            </div>
-            <div className="col-span-1">
-              <h2 className="text-xl font-bold mb-4">Help Desk</h2>
-              <p>Privacy policy</p>
-              <p>Cancellation policy</p>
-              <p>Terms & Condition</p>
-              <p>Refund policy</p>
-              <p>Shipping policy</p>
-              <p>FAQ’s</p>
-              <p>Customizing Policy</p>
-            </div>
-            <div className="col-span-1 md:col-span-3 lg:col-span-6 text-center mt-8">
-              <hr className="bg-white mb-4"></hr>
-              <p>Copyright © 2024 The Artist. All rights reserved</p>
+          </div>
+          <div
+            className=" text-white text-center p-8"
+            style={{ backgroundColor: "#8a8d78" }}
+          >
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 flex justify-center items-center">
+              <div className="col-span-1">
+                <h2 className="text-xl font-bold mb-4">Visit Us</h2>
+                <p>
+                  C-XX, Lorem Ipsum APARTMENT, GROUND FLOOR, Diemet Ozgur, C -
+                  DREAM - 405601, ( hac. ), Ut
+                </p>
+              </div>
+              <div className="col-span-1">
+                <h2 className="text-xl font-bold mb-4">Need Support</h2>
+                <p>Call +91 982xxxxxxx</p>
+                <p>Call +91 141xxxxxxx</p>
+                <p>Mon - Sat : 10.00 am - 7.00 pm</p>
+              </div>
+              <div className="col-span-1">
+                <h2 className="text-xl font-bold mb-4">Contact via Email</h2>
+                <p>artist@gmail.com</p>
+                <p>theartist@gmail.com</p>
+                <p>We&apos;ll get back to you.</p>
+              </div>
+              <div className="col-span-1">
+                <h2 className="text-xl font-bold mb-4">Follow Us</h2>
+                <p>Instagram</p>
+              </div>
+              <div className="col-span-1">
+                <h2 className="text-xl font-bold mb-4">Help Desk</h2>
+                <p>Privacy policy</p>
+                <p>Cancellation policy</p>
+                <p>Terms & Condition</p>
+                <p>Refund policy</p>
+                <p>Shipping policy</p>
+                <p>FAQ’s</p>
+                <p>Customizing Policy</p>
+              </div>
+              <div className="col-span-1 md:col-span-3 lg:col-span-6 text-center mt-8">
+                <hr className="bg-white mb-4"></hr>
+                <p>Copyright © 2024 The Artist. All rights reserved</p>
+              </div>
             </div>
           </div>
         </div>
