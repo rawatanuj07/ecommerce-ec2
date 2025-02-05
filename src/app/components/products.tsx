@@ -42,40 +42,41 @@ export default function Products() {
   });
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("/api/fetchh?type=products&tag=trending");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
+    if (typeof window !== "undefined") {
+      const fetchProducts = async () => {
+        try {
+          const res = await fetch("/api/fetchh?type=products&tag=trending");
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          const data = await res.json();
+          setProducts(data);
+          console.log("tag products is", data);
+        } catch (error) {
+          console.error("Error fetching products:", error);
         }
-        const data = await res.json();
-        setProducts(data);
-        console.log("tag products is", data);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
+      };
 
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch("/api/fetchh?type=categories");
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
+      const fetchCategories = async () => {
+        try {
+          const res = await fetch("/api/fetchh?type=categories");
+          if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+          const data = await res.json();
+          const filteredCategories = data.filter(
+            (category: { name: string }) => category.name !== "Uncategorized"
+          );
+          setCategories(filteredCategories);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
         }
-        const data = await res.json();
-        const filteredCategories = data.filter(
-          (category: { name: string }) => category.name !== "Uncategorized"
-        );
-        setCategories(filteredCategories);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
+      };
 
-    const fetchSectionStyles = async () => {
-      try {
-        const data = await client.fetch(
-          `*[_type == "bodyTop"][0]{
+      const fetchSectionStyles = async () => {
+        try {
+          const data = await client.fetch(
+            `*[_type == "bodyTop"][0]{
 footerImage{
                 asset->{
                   url
@@ -94,23 +95,23 @@ footerImage{
               }
             }
           }`
-        );
-        setSectionStyles({
-          backgroundImage: data.backgroundImage.asset.url,
-          categoriesBackgroundColor: data.categoriesBackgroundColor,
-          textColor: data.textColor,
-          parallaxImage: data.parallaxImage.asset.url, // Set parallax image
-          footerImage: data.footerImage.asset.url,
-        });
-      } catch (error) {
-        console.error("Error fetching section styles:", error);
-      }
-    };
+          );
+          setSectionStyles({
+            backgroundImage: data.backgroundImage.asset.url,
+            categoriesBackgroundColor: data.categoriesBackgroundColor,
+            textColor: data.textColor,
+            parallaxImage: data.parallaxImage.asset.url, // Set parallax image
+            footerImage: data.footerImage.asset.url,
+          });
+        } catch (error) {
+          console.error("Error fetching section styles:", error);
+        }
+      };
 
-    const fetchTestimonials = async () => {
-      try {
-        const data = await client.fetch(
-          `*[_type == "bodyTop"][0]{
+      const fetchTestimonials = async () => {
+        try {
+          const data = await client.fetch(
+            `*[_type == "bodyTop"][0]{
            
             testimonials[]{
               name,
@@ -123,19 +124,20 @@ footerImage{
               }
             }
           }`
-        );
-        setTestimonials(data.testimonials);
-        console.log("testimonials data is", data.testimonials);
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
-      }
-    };
+          );
+          setTestimonials(data.testimonials);
+          console.log("testimonials data is", data.testimonials);
+        } catch (error) {
+          console.error("Error fetching testimonials:", error);
+        }
+      };
 
-    fetchProducts();
-    fetchCategories();
-    fetchTestimonials();
+      fetchProducts();
+      fetchCategories();
+      fetchTestimonials();
 
-    fetchSectionStyles();
+      fetchSectionStyles();
+    }
   }, []);
 
   const responsives = {
