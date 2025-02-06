@@ -595,7 +595,7 @@ footerImage{
           <div className="relative w-full">
             <div
               style={{
-                backgroundImage: `url(https://vikkaso.com/public/asset/images/background_footer_img.png)`,
+                backgroundImage: `url("/footerr.png")`,
                 paddingBottom: "280px",
                 backgroundRepeat: "repeat-x ",
                 backgroundPosition: "center-bottom",
