@@ -251,8 +251,8 @@ footerImage{
               responsive={responsive}
               showDots={false}
               infinite
-              autoPlay
-              autoPlaySpeed={3000}
+              autoPlay={false}
+              // autoPlaySpeed={3000}
               keyBoardControl
               customTransition="transform 0.5s ease-in-out"
               transitionDuration={500}
