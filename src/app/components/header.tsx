@@ -88,7 +88,7 @@ const Header = () => {
       <div className="flex items-center lg:hidden justify-between">
         {/* Hamburger Menu (Mobile & Tablet) */}
         <div
-          className={`lg:hidden transform bg-white rounded rounded-lg transition-transform duration-300 ${
+          className={`lg:hidden transform bg-white rounded rounded-lg transition-transform duration-700 ${
             isSidebarOpen ? "translate-x-72 -translate-y-12 z-50" : ""
           }`}
         >
