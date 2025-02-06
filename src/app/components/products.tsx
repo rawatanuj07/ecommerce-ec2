@@ -303,7 +303,6 @@ footerImage{
               overflow: hidden;
               border-radius: 50%;
               transition: all 0.3s ease;
-              border: 2px solid white;
             }
                @media (min-width: 1024px) {
     .category-image-wrapper {
