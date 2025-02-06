@@ -8,10 +8,7 @@ import Pricestock from "@/components/ui/pricestock";
 
 export const dynamic = "force-static";
 export const revalidate = 3600;
-interface SizeOption {
-  size: string;
-  price: number;
-}
+
 async function ProductPage(props: { params: Promise<{ slug: string }> }) {
   const { params } = props; // Destructure params from props
   const { slug } = await params; // Resolve the promise to extract slug
