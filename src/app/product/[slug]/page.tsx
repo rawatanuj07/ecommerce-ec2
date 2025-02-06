@@ -70,7 +70,7 @@ async function ProductPage(props: { params: Promise<{ slug: string }> }) {
             <div className="text-xl font-semibold mb-4">
               £{product[0].price}
             </div> */}
-            <Pricestock data={product[0].price} />
+            <Pricestock />
             <div className="prose max-w-none mb-6">
               {/* {Array.isArray(product.description) && (
                 <PortableText value={product.description} />
