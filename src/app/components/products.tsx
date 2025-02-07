@@ -342,6 +342,7 @@ footerImage{
             showDots={false}
             infinite
             autoPlay
+            pauseOnHover
             autoPlaySpeed={3000}
             keyBoardControl
             customTransition="transform 0.5s ease-in-out"
