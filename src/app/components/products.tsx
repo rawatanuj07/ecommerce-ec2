@@ -7,10 +7,11 @@ import { client } from "../../sanity/lib/client"; // Adjust the path based on yo
 // import { Player } from "@lottiefiles/react-lottie-player";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Clottie from "./ui/clottie";
 // Dynamically import the LottieComponent with no SSR
-const LottieComponent = dynamic(() => import("../components/ui/reactlottie"), {
-  ssr: false,
-});
+// const LottieComponent = dynamic(() => import("../components/ui/reactlottie"), {
+//   ssr: false,
+// });
 
 // import Image from "next/image";
 
@@ -210,7 +211,7 @@ footerImage{
   return (
     <>
       <div
-        className="flex flex-col justify-center"
+        className="flex h-full flex-col justify-center"
         style={{
           // backgroundImage: `url(${sectionStyles.backgroundImage})`,
           // backgroundSize: "cover",
@@ -218,7 +219,7 @@ footerImage{
           color: sectionStyles.textColor,
         }}
       >
-        <div
+        {/* <div
           className="relative h-1/2"
           style={{ backgroundColor: sectionStyles.categoriesBackgroundColor }}
         >
@@ -305,16 +306,16 @@ footerImage{
               transition: all 0.3s ease;
             }
                @media (min-width: 1024px) {
-    .category-image-wrapper {
-      width: 300px;
-      height: 300px;
-    }
+               .category-image-wrapper {
+                width: 300px;
+                height: 300px;
+              }
             .category-image {
               width: 100%;
               height: 100%;
               object-fit: cover;
               transition: all 0.3s ease;
-              transform-origin: center; /* Ensure scaling from the center */
+              transform-origin: center; 
             }
             .category-item:hover .category-image-wrapper {
               border: 8px solid #0f3a00;
@@ -324,7 +325,9 @@ footerImage{
               transform: scale(1.1);
             }
           `}</style>
-        </div>
+        </div> 
+        */}
+        {/* <Clottie /> */}
         {/* TREDNDING-TODAY SECTION*/}
         <div
           style={{
@@ -428,7 +431,7 @@ footerImage{
           `}</style>
         </div>
 
-        <div className="h-auto bg-white z-1 flex flex-wrap justify-center items-center p-4 overflow-hidden">
+        <div className="h-full bg-white z-1 flex flex-wrap justify-center items-center p-4 overflow-hidden">
           {categories.slice(0, 4).map((category) => (
             <Link
               className="category-item mb-8 flex-col lg:flex-1 max-w-sm mx-2 p-4 relative group"
@@ -457,7 +460,7 @@ footerImage{
         </div>
 
         <div
-          className="parallax h-auto z-1 bg-fixed bg-center bg-no-repeat bg-cover relative"
+          className="parallax h-full z-1 bg-fixed bg-center bg-no-repeat bg-cover relative"
           style={{
             backgroundImage: `url(${sectionStyles.parallaxImage})`,
           }}
@@ -523,15 +526,15 @@ footerImage{
             style={{ width: "100%", height: "100%" }}
           /> */}
         </div>
-        <div className="absolute inset-0  hidden z-0 block md:block ">
+        {/* <div className="absolute inset-0  hidden z-0 block md:block ">
           <LottieComponent
             url="lotties/pink.json"
             name="Pink Animation"
             height={1040}
             width={1500}
           />
-        </div>
-        <div className="h-auto z-0 bg-black bg-opacity-60  bottom-0 w-full">
+        </div> */}
+        <div className="h-full z-0 bg-black bg-opacity-60  bottom-0 w-full">
           <div className="flex justify-center  items-center">
             <Carousel
               responsive={responsivet}

@@ -31,7 +31,7 @@ interface AnimationData {
   layers: Layer[]; // layers array
 }
 
-const LottieComponent: React.FC<LottieComponentProps> = (props) => {
+const LottieComponent: React.FC<LottieComponentProps> = React.memo((props) => {
   const [animationData, setAnimationData] = useState<AnimationData | null>(
     null
   );
@@ -56,6 +56,6 @@ const LottieComponent: React.FC<LottieComponentProps> = (props) => {
       <Lottie options={defaultOptions} height={props.height} width="100%" />
     </div>
   );
-};
+});
 
 export default LottieComponent;

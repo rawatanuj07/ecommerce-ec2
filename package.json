@@ -10,6 +10,8 @@
     "typegen": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.12.3",
+    "@lottiefiles/lottie-player": "^2.0.12",
     "@nextui-org/react": "^2.6.10",
     "@nextui-org/slider": "^2.4.6",
     "@nextui-org/system": "^2.4.5",
